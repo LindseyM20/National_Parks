@@ -4,18 +4,25 @@ import java.sql.Date; 	// Should this be java.util.Date?
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 
 @Entity
 @IdClass(Bucket_BeenId.class) // This is needed since we have a composite key
 public class Bucket_Been {
+	// Next 3 lines are new
+//	@Id
+//	@GeneratedValue(strategy=GenerationType.SEQUENCE)
+//	private int id;
+	
 	@Id
 	private int park_id; // How to indicate this is a foreign key?
 	@Id
 	private int user_id; // How to indicate this is a foreign key?
 	@Column(nullable=false)
-	private Boolean visited;	// This is what determines bucket or been
+	private Boolean visited;	// This is what determines bucket or been.
 	@Column(nullable=false)
 	private Boolean visit_again;// How to assign default: false? (This allows parks in been list to be added also to bucket list)
 	@Column(nullable=true)
@@ -27,6 +34,18 @@ public class Bucket_Been {
 		super();
 	}
 
+//	public Bucket_Been(int id, int park_id, int user_id, Boolean visited, Boolean visit_again, Date date_visited,
+//			int journal_id) {
+//		super();
+//		this.id = id;
+//		this.park_id = park_id;
+//		this.user_id = user_id;
+//		this.visited = visited;
+//		this.visit_again = visit_again;
+//		this.date_visited = date_visited;
+//		this.journal_id = journal_id;
+//	}
+
 	public Bucket_Been(int park_id, int user_id, Boolean visited, Boolean visit_again, Date date_visited,
 			int journal_id) {
 		super();
@@ -37,6 +56,14 @@ public class Bucket_Been {
 		this.date_visited = date_visited;
 		this.journal_id = journal_id;
 	}
+
+//	public int getId() {
+//		return id;
+//	}
+//
+//	public void setId(int id) {
+//		this.id = id;
+//	}
 
 	public int getPark_id() {
 		return park_id;
@@ -86,5 +113,10 @@ public class Bucket_Been {
 		this.journal_id = journal_id;
 	}
 	
-	
+	@Override
+	public String toString() {
+		return "Bucket_Been [park_id=" + park_id + ", user_id=" + user_id + ", visited=" + visited
+				+ ", visit_again=" + visit_again + ", date_visited=" + date_visited + ", journal_id=" + journal_id
+				+ "]";
+	}
 }

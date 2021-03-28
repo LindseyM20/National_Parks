@@ -4,6 +4,12 @@ import java.io.Serializable;
 
 
 public class Bucket_BeenId implements Serializable{
+	/**
+	 * These next 2 lines were auto-generated. Should only need one, but is it necessary?
+	 */
+//	private static final long serialVersionUID = 1L;
+//	private static final long serialVersionUID = 6219429581741047516L;
+	
 	private int park_id; // How to indicate these are foreign keys?
 	private int user_id;
 	
@@ -39,5 +45,12 @@ public class Bucket_BeenId implements Serializable{
 		if (user_id != other.user_id)
 			return false;
 		return true;
+	}
+	
+	@Override
+	public String toString() {
+		return "Bucket_BeenId [park_id=" + park_id + ", user_id=" + user_id + "]";
 	} 
+	
+	
 }

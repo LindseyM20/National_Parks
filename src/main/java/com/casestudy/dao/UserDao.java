@@ -4,6 +4,8 @@ import com.casestudy.dbConnection.DBConnection;
 import com.casestudy.models.User;
 
 public class UserDao extends DBConnection implements UserDaoI {
+	
+	@Override
 	public boolean addUser(User user) {
 		try {
 			this.connect();
@@ -18,6 +20,7 @@ public class UserDao extends DBConnection implements UserDaoI {
 		return false;
 	}
 	
+	@Override
 	public User findUserByEmail(String email) {
 		try {
 			this.connect();
@@ -30,6 +33,5 @@ public class UserDao extends DBConnection implements UserDaoI {
 		return null;
 	}
 	
-	// Maybe add a validateUser method in here so it's not happening in the controller
-	// or put it in the service
+	// validateUser method is in the service
 }

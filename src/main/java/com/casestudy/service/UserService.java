@@ -14,7 +14,7 @@ public class UserService {
 		return uDao.findUserByEmail(email);
 	}
 	
-	public boolean validateEmpService(String email, String password) {
+	public boolean validateUserService(String email, String password) {
 		User uFound = uDao.findUserByEmail(email);
 		if (uFound!=null) {
 			if (uFound.getEmail().equals(email) && uFound.getPassword().equals(password)) {
