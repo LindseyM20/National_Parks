@@ -17,6 +17,7 @@ public class Main {
 		Bucket_BeenService BBSer = new Bucket_BeenService();
 		ParkService parkSer = new ParkService();
 		
+		// seeding the User table
 //		User u1 = new User("Lindsey", "hello@world.com", "asdf");
 //		User u2 = new User("Dave", "funguy@fungi.com", "mush");
 //		User u3 = new User("Jax", "jaxy@thedog.com", "treats");
@@ -25,17 +26,26 @@ public class Main {
 //		USer.addUserService(u2);
 //		USer.addUserService(u3);
 //		USer.addUserService(u4);
-//		USer.findUserByEmailService("tekglobal@email.com");
+		//test:
+//		USer.findUserByEmailService("hello@world.com");
+		
+		User u1 = USer.findUserByEmailService("hello@world.com");
+		User u2 = USer.findUserByEmailService("funguy@fungi.com");
+		
+		Park park1 = parkSer.getParkByIdService(50);
+		Park park2 = parkSer.getParkByIdService(18);
+		
+		Journal journal1 = new Journal("this is my first journal");
+		Journal journal2 = new Journal("this is my second journal");
 
-		//This works but foreign key constraints were taken out
-//		Journal journal1 = new Journal("this is my first journal");
-//		Journal journal2 = new Journal("this is my second journal");
-//		Bucket_Been been1 = new Bucket_Been(5, 1, true, false, journal1);
-//		Bucket_Been been2 = new Bucket_Been(50, 2, true, false, journal2);
-//		BBSer.addBBParkService(been1);
-//		BBSer.addBBParkService(been2);
-//		
+
+		Bucket_Been been1 = new Bucket_Been(park1, u1, true, false, journal1);
+		Bucket_Been been2 = new Bucket_Been(park2, u2, true, false, journal2);
+		BBSer.addBBParkService(been1);
+		BBSer.addBBParkService(been2);
+		
 //		BBSer.getUserBeenService(1);
+//		BBSer.getUserBeenService(2);
 //		
 //		Journal journal3 = new Journal("this is my third journal");
 //		Journal journal4 = new Journal("this is my fourth journal");
@@ -50,9 +60,11 @@ public class Main {
 //		BBSer.deleteBBParkService(5, 1);
 		
 		
-		List<Park> parks = parkSer.getAllParksService();
-		for (Park p: parks) {
-			System.out.println(p.toString());
-		}
+//		List<Park> parks = parkSer.getAllParksService();
+//		for (Park p: parks) {
+//			System.out.println(p.toString());
+//		}
+
+//		System.out.println(park.toString());
 	}
 }

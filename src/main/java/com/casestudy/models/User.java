@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.validation.constraints.Email;
 
 @Entity
@@ -16,11 +17,13 @@ public class User {
 	private Integer id;
 	@Column(length=60, nullable=false)
 	private String name;
-	@Column(length=60, nullable=false, unique=true)
+	@Column(length=60, nullable=false)
 	@Email // this annotation may not be necessary if I decide to validate email the other way
 	private String email;
 	@Column(length=25, nullable=false)
 	private String password;
+	@ManyToMany
+	private List<Park> bucket_beenParks;
 	// If the embedded stuff doesn't work, add a list of bbparks, with joinColumn annotation.
 	
 	public User() {

@@ -6,4 +6,5 @@ import com.casestudy.models.Park;
 
 public interface ParkDaoI {
 	public List<Park> getAllParks();
+	public Park getParkById(int id);
 }

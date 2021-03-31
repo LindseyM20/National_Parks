@@ -15,13 +15,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.casestudy.dao.UserDao;
 import com.casestudy.models.Bucket_Been;
 import com.casestudy.models.Journal;
+import com.casestudy.models.Park;
 import com.casestudy.models.User;
 import com.casestudy.service.Bucket_BeenService;
+import com.casestudy.service.ParkService;
 import com.casestudy.service.UserService;
 
 @Controller
 public class HomeController {
 	Bucket_BeenService bbServ = new Bucket_BeenService();
+	ParkService parkServ = new ParkService();
 	
 	//What happens when a user clicks "add to been" on a park
 	// GET HELP ON THIS
@@ -29,10 +32,11 @@ public class HomeController {
 	public String processBeen(@RequestParam("park_id") Integer park_id, HttpSession session) {
 		User user = (User) session.getAttribute("currentUser");
 		
+		Park park = parkServ.getParkByIdService(50);	// change this later so park isn't hardcoded.
+		
 		// check to see if park is already in bucket_been table? or assume it can't be added twice?
-		//REPLACE 60. How to grab park's id?
-		// Now the first 2 arguments need to be a Park and a User
-//		Bucket_Been park = new Bucket_Been(60, user.getId(), true, false, null);
+		//REPLACE park. How to grab park's id?
+//		Bucket_Been bbPark = new Bucket_Been(park, user, true, false, null);
 
 		return "login";
 	}
