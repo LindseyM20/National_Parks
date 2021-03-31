@@ -78,7 +78,7 @@ public class Bucket_BeenDao extends DBConnection implements Bucket_BeenDaoI {
 	
 	
 	
-	
+	@Override
 	public List<Bucket_Been> getUserBeen(int user_id) {
 		this.connect();
 		String query = "select bb from Bucket_Been bb where bb.user_id = " + user_id + " and bb.visited = 1";
@@ -90,6 +90,7 @@ public class Bucket_BeenDao extends DBConnection implements Bucket_BeenDaoI {
 		return beenParks;
 	};
 	
+	@Override
 	public List<Bucket_Been> getUserBucket(int user_id) {
 		this.connect();
 		String query = "select bb from Bucket_Been bb where bb.user_id = " + user_id + " and bb.visited = 0";

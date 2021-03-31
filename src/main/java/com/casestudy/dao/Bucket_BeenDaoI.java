@@ -13,5 +13,5 @@ public interface Bucket_BeenDaoI {
 	
 	// Might need a "get all been parks by user" / getUserBeen
 	public List<Bucket_Been> getUserBeen(int user_id);
-	// Might need a "get all bucket parks by user" / getUserBucket
+	public List<Bucket_Been> getUserBucket(int user_id);
 }

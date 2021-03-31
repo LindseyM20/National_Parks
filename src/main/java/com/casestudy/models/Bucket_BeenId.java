@@ -2,7 +2,10 @@ package com.casestudy.models;
 
 import java.io.Serializable;
 
+import javax.persistence.Embeddable;
+import javax.persistence.JoinColumn;
 
+//@Embeddable
 public class Bucket_BeenId implements Serializable{
 	/**
 	 * These next 2 lines were auto-generated. Should only need one, but is it necessary?
@@ -10,7 +13,10 @@ public class Bucket_BeenId implements Serializable{
 //	private static final long serialVersionUID = 1L;
 //	private static final long serialVersionUID = 6219429581741047516L;
 	
+	//Could try longs here
+	@JoinColumn(name="park_id")
 	private int park_id; // How to indicate these are foreign keys?
+	@JoinColumn(name="user_id")
 	private int user_id;
 	
 	public Bucket_BeenId() {

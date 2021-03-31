@@ -26,8 +26,6 @@ public class Bucket_BeenService {
 	
 	
 	
-	
-	
 	public List<Bucket_Been> getUserBeenService(int user_id) {
 		return bbDao.getUserBeen(user_id);
 	};
@@ -35,4 +33,7 @@ public class Bucket_BeenService {
 	public List<Bucket_Been> getUserBucketService(int user_id) {
 		return bbDao.getUserBucket(user_id);
 	};
+	
+	
+	
 }
