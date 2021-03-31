@@ -20,6 +20,11 @@ public class Journal {
 		super();
 	}
 
+	public Journal(String entry) {
+		super();
+		this.entry = entry;
+	}
+
 	public Journal(int id, String entry) {
 		super();
 		this.id = id;
@@ -40,6 +45,11 @@ public class Journal {
 
 	public void setEntry(String entry) {
 		this.entry = entry;
+	}
+
+	@Override
+	public String toString() {
+		return "Journal [id=" + id + ", entry=" + entry + "]";
 	}
 	
 }

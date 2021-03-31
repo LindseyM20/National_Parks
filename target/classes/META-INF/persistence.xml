@@ -5,13 +5,14 @@
 		<class>com.casestudy.models.User</class>
 		<class>com.casestudy.models.Park</class>
 		<class>com.casestudy.models.Bucket_Been</class>
+		<!-- <class>com.casestudy.models.Bucket_BeenId</class> Should I have this? -->
 		<class>com.casestudy.models.Journal</class>
 		
 	
 		<!-- Properties -->
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
-			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/National_Parks"/> <!-- Here's where we put the name of the DB we're using -->
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/National_Parks"/> <!-- Can add ?serverTimezone=UTC onto the end of the string if problems. -->
 			<property name="javax.persistence.jdbc.user" value="root"/>
 			<property name="javax.persistence.jdbc.password" value="rootroot"/>
 			
