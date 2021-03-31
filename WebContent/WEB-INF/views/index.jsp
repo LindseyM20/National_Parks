@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <!DOCTYPE html>
 
 <html lang="en">
@@ -9,7 +10,8 @@
 
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script defer src="./js/homepage.js"></script>
+<!-- <script defer src="./js/homepage.js"></script> -->
+
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <!-- Latest compiled and minified CSS -->
@@ -44,6 +46,18 @@
 		</nav>
 		<h1 id="mainTitle">National Parks</h1>
 	</div>
+	<%--<% List parks =  --%>
+	
+	<%-- 
+	<c:forEach items="${parks}" var="park">
+	    <p><c:out value="${park}"/></p>
+	</c:forEach>
+	--%>
+	  <c:forEach var = "i" begin = "1" end = "5">
+         Item <c:out value = "${i}"/><p>
+      </c:forEach>
+	
+	
 	<div id="container">
 		<ul id="parkList" class="thumbnails">
 			<li class="parkLi">

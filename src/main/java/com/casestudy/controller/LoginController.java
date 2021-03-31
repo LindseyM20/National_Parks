@@ -1,5 +1,7 @@
 package com.casestudy.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -12,29 +14,22 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.casestudy.dao.UserDao;
 import com.casestudy.models.Journal;
+import com.casestudy.models.Park;
 import com.casestudy.models.User;
+import com.casestudy.service.ParkService;
 import com.casestudy.service.UserService;
 
 
 @Controller
 public class LoginController {
-//	UserDao uDao = new UserDao();
 	UserService userService = new UserService();
+	ParkService parkService = new ParkService();
 	
 	@GetMapping("/")
 	public String showIndexPage() {
-		return "index";	// this method is going to run a get request
+		List<Park> parks = parkService.getAllParksService();
+		return "index";
 	}
-	
-//	@GetMapping("/about")
-//	public String showAboutPage() {
-//		return "about";	// this method is going to run a get request
-//	}
-//	
-//	@GetMapping("/contact")
-//	public String showContactPage() {
-//		return "contact";	// this method is going to run a get request
-//	}
 	
 	@GetMapping("/register")
 	public String showRegistrationPage(Model model) {
@@ -66,7 +61,7 @@ public class LoginController {
 			@RequestParam("password") String password, Model model, HttpSession session) {
 		User user = userService.findUserByEmailService(email);
 		System.out.println(user);
-		System.out.println("Coming from line 69 " + user.toString());
+		System.out.println("Coming from line 71 " + user.toString());
 		if (user != null && password.equals(user.getPassword())) {	// decrypt password here.
 			session.setAttribute("currentUser", user);
 			return "home";
@@ -94,24 +89,10 @@ public class LoginController {
 //		return "index";
 //	}
 //	
-//	//delete this later
 //	@GetMapping("/about")
 //	public String showAboutPage() {
-//		return "about";	// this method is going to run a get request
+//		return "about";
 //	}
 //	
-
-
-
-////	@GetMapping("/about")
-////	public String showAboutPage() {
-////		return "about_me";
-////	}
-//	
-////	@GetMapping("/thanks")
-////	public String showThanksPage() {
-////		return "thanks";
-////	}
-
 
 }

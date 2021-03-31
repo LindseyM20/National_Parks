@@ -31,7 +31,8 @@ public class HomeController {
 		
 		// check to see if park is already in bucket_been table? or assume it can't be added twice?
 		//REPLACE 60. How to grab park's id?
-		Bucket_Been park = new Bucket_Been(60, user.getId(), true, false, null);
+		// Now the first 2 arguments need to be a Park and a User
+//		Bucket_Been park = new Bucket_Been(60, user.getId(), true, false, null);
 
 		return "login";
 	}

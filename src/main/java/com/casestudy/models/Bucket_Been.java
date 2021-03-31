@@ -1,15 +1,15 @@
 package com.casestudy.models;
 
 import java.io.Serializable;
-import java.sql.Date; 	// Should this be java.util.Date?
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -24,19 +24,26 @@ public class Bucket_Been implements Serializable{
 //	@EmbeddedId
 //	private Bucket_BeenId bbId;
 	@Id
-	private int park_id; // How to indicate this is a foreign key?
+	@ManyToOne(cascade=CascadeType.ALL)
+	private Park park_id; // How to indicate this is a foreign key?
+	
 	@Id
-	private int user_id; // How to indicate this is a foreign key?
+	@ManyToOne(cascade=CascadeType.ALL)
+	private User user_id; // How to indicate this is a foreign key?
+	
 	@Column(nullable=false)
 	private Boolean visited;	// This is what determines bucket or been.
+	
 	@Column(nullable=false)
 	private Boolean visit_again;// How to assign default: false? (This allows parks in been list to be added also to bucket list)
+	
 //	@Column(nullable=true)
 //	private Date date_visited;
-//	@Column(nullable=true)
+	
 	@OneToOne(cascade = CascadeType.PERSIST)
-	@JoinColumn(name="id")
+	@JoinColumn(name="journal_id", nullable=true)
 	private Journal journal_id;
+	
 	
 	public Bucket_Been() {
 		super();
@@ -54,7 +61,7 @@ public class Bucket_Been implements Serializable{
 //		this.journal_id = journal_id;
 //	}
 
-	public Bucket_Been(int park_id, int user_id, Boolean visited, Boolean visit_again,
+	public Bucket_Been(Park park_id, User user_id, Boolean visited, Boolean visit_again,
 			Journal journal_id) {
 		super();
 		this.park_id = park_id;
@@ -66,11 +73,11 @@ public class Bucket_Been implements Serializable{
 
 
 
-	public int getPark_id() {
+	public Park getPark_id() {
 		return park_id;
 	}
 
-	public int getUser_id() {
+	public User getUser_id() {
 		return user_id;
 	}
 

@@ -1,18 +1,30 @@
 package com.casestudy.models;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
 public class Park {
 	@Id
+	@GeneratedValue(strategy=GenerationType.SEQUENCE)
+	@Column(name="id")
 	private int id;
+	@Column(name="name")
 	private String name;
+	@Column(name="state")
 	private String state;
+	@Column(name="year_founded")
 	private int year_founded;
+	@Column(name="photoLocal")
 	private String photoLocal;
+	@Column(name="photoURL")
 	private String photoURL;
+	@Column(name="photo_cred")
 	private String photo_cred;
+	@Column(name="summary")
 	private String summary;
 	
 	public Park() {}
