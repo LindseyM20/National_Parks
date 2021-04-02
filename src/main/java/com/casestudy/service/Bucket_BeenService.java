@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.casestudy.dao.Bucket_BeenDao;
 import com.casestudy.models.Bucket_Been;
+import com.casestudy.models.User;
 
 public class Bucket_BeenService {
 	private Bucket_BeenDao bbDao = new Bucket_BeenDao();

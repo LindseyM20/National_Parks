@@ -1,5 +1,6 @@
 package com.casestudy.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -23,32 +24,74 @@ import com.casestudy.service.UserService;
 
 @Controller
 public class HomeController {
-	Bucket_BeenService bbServ = new Bucket_BeenService();
-	ParkService parkServ = new ParkService();
+	Bucket_BeenService bbService = new Bucket_BeenService();
+	ParkService parkService = new ParkService();
 	
-	//What happens when a user clicks "add to been" on a park
-	// GET HELP ON THIS
-	@PostMapping("/home")
-	public String processBeen(@RequestParam("park_id") Integer park_id, HttpSession session) {
-		User user = (User) session.getAttribute("currentUser");
-		
-		Park park = parkServ.getParkByIdService(50);	// change this later so park isn't hardcoded.
-		
-		// check to see if park is already in bucket_been table? or assume it can't be added twice?
-		//REPLACE park. How to grab park's id?
-//		Bucket_Been bbPark = new Bucket_Been(park, user, true, false, null);
+	@GetMapping("/home")
+	public String showHomePage(Model model, HttpSession session) {
+		User user = (User) session.getAttribute("currentUser"); //use this to display user's name
+		List<Park> parks = parkService.getAllParksService();	// change this later so park isn't hardcoded.
+		model.addAttribute("user", user);
+		model.addAttribute("parks", parks);
 
-		return "login";
+		return "home";
 	}
 	
-	// Display the been list (should this stuff go in the service instead?)
-	@GetMapping("/been")
-	public String showBeenPage(HttpSession session) {
+	//What happens when a user clicks "+ been list" on a park
+	// GET HELP ON THIS
+	@PostMapping("/home")
+	public String processBeen(@RequestParam("park_id") int park_id, 
+							Model model, HttpSession session) {
+		System.out.println("IN THE HOME POSTMAPPING METHOD/PROCESSBEEN!!!!");
 		User user = (User) session.getAttribute("currentUser");
-		List<Bucket_Been> beenList = bbServ.getUserBeenService(user.getId());
-//		How to save the list so jsp can render it? session attribute?
-//		session.setAttribute("beenParks", beenList);
+		
+		Park park = parkService.getParkByIdService(park_id);
+		System.out.println("USER IS: " + user.toString());
+		System.out.println("PARK IS: " + park.toString());
+		model.addAttribute("park", park);
+		Bucket_Been parkToAdd = new Bucket_Been(park, user, true, false, null);
+		bbService.addBBParkService(parkToAdd);
+		
+
+		
+//		// check to see if park is already in bucket_been table? or assume it can't be added twice?
+//		Bucket_Been bbPark = new Bucket_Been(park, user, true, false, null);
+//		bbService.addBBParkService(bbPark);
+
+		return "home";
+	}
+	
+	// Display the been list
+	@GetMapping("/been")
+	public String showBeenPage(HttpSession session, Model model) {
+		User user = (User) session.getAttribute("currentUser");
+		List<Bucket_Been> beenList = bbService.getUserBeenService(user.getId());
+		// map beenList to a list of Park type
+		List<Park> beenParks = new ArrayList<Park>();
+		for (Bucket_Been bb : beenList) {
+			int park_id = bb.getPrimaryKey().getPark_id();
+			beenParks.add(parkService.getParkByIdService(park_id));
+		}
+		model.addAttribute("user", user);
+		model.addAttribute("beenParks", beenParks);
+		
 		return "been";
+	}
+	
+	// Display the been list
+	@GetMapping("/bucket")
+	public String showBucketPage(HttpSession session, Model model) {
+		User user = (User) session.getAttribute("currentUser");
+		List<Bucket_Been> bucketList = bbService.getUserBucketService(user.getId());
+		// map bucketList to a list of Park type
+		List<Park> bucketParks = new ArrayList<Park>();
+		for (Bucket_Been bb : bucketList) {
+			int park_id = bb.getPrimaryKey().getPark_id();
+			bucketParks.add(parkService.getParkByIdService(park_id));
+		}
+		model.addAttribute("user", user);
+		model.addAttribute("bucketParks", bucketParks);
+		return "bucket";
 	}
 	
 //	@PostMapping("/been")

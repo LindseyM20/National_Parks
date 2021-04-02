@@ -26,8 +26,12 @@ public class LoginController {
 	ParkService parkService = new ParkService();
 	
 	@GetMapping("/")
-	public String showIndexPage() {
+	public String showIndexPage(Model model) {
 		List<Park> parks = parkService.getAllParksService();
+		model.addAttribute("parks", parks);
+//		for (Park p: parks) {
+//			System.out.println(p);
+//		}
 		return "index";
 	}
 	
@@ -60,16 +64,26 @@ public class LoginController {
 	public String processLogin(@RequestParam("email") String email, 
 			@RequestParam("password") String password, Model model, HttpSession session) {
 		User user = userService.findUserByEmailService(email);
-		System.out.println(user);
-		System.out.println("Coming from line 71 " + user.toString());
+		System.out.println("Coming from processLogin method: " + user.toString());
 		if (user != null && password.equals(user.getPassword())) {	// decrypt password here.
+			System.out.println("Login succeeded.");
 			session.setAttribute("currentUser", user);
-			return "home";
+			return "redirect:/home";
 		}
 		System.out.println("Login failed.");
 		model.addAttribute("loginFailedMessage", "Login Failed");
 		return "login";
 	}
+	
+//	@GetMapping("/home")
+//	public String showHomePage(Model model) {
+//		List<Park> parks = parkService.getAllParksService();
+//		model.addAttribute("parks", parks);
+////		for (Park p: parks) {
+////			System.out.println(p);
+////		}
+//		return "home";
+//	}
 	
 //	@GetMapping("/saveHardCodedUser")
 //	public String saveHardCodedUser() {
