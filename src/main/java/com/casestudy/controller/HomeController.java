@@ -11,6 +11,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.casestudy.dao.UserDao;
@@ -33,33 +35,31 @@ public class HomeController {
 		List<Park> parks = parkService.getAllParksService();	// change this later so park isn't hardcoded.
 		model.addAttribute("user", user);
 		model.addAttribute("parks", parks);
+		return "home";
+	}
 
+	@PostMapping("/home1")
+	public String processAddBucket(@RequestParam("park_id") int park_id, HttpSession session) {
+		User user = (User) session.getAttribute("currentUser");
+		Park park = parkService.getParkByIdService(park_id);
+		Bucket_Been parkToAdd = new Bucket_Been(park, user, false, false, null);
+		bbService.addBBParkService(parkToAdd);
+		// Todo: if park is already in bucket_been table, alert user somehow
 		return "home";
 	}
 	
-	//What happens when a user clicks "+ been list" on a park
-	// GET HELP ON THIS
-	@PostMapping("/home")
-	public String processBeen(@RequestParam("park_id") int park_id, 
-							Model model, HttpSession session) {
-		System.out.println("IN THE HOME POSTMAPPING METHOD/PROCESSBEEN!!!!");
+	// How to do this so both buttons call the same function?
+	@PostMapping("/home2")
+	public String processAddBeen(@RequestParam("park_id") int park_id, HttpSession session) {
 		User user = (User) session.getAttribute("currentUser");
-		
 		Park park = parkService.getParkByIdService(park_id);
-		System.out.println("USER IS: " + user.toString());
-		System.out.println("PARK IS: " + park.toString());
-		model.addAttribute("park", park);
 		Bucket_Been parkToAdd = new Bucket_Been(park, user, true, false, null);
 		bbService.addBBParkService(parkToAdd);
-		
-
-		
-//		// check to see if park is already in bucket_been table? or assume it can't be added twice?
-//		Bucket_Been bbPark = new Bucket_Been(park, user, true, false, null);
-//		bbService.addBBParkService(bbPark);
-
+		// Todo: if park is already in bucket_been table, alert user somehow
 		return "home";
 	}
+	
+
 	
 	// Display the been list
 	@GetMapping("/been")

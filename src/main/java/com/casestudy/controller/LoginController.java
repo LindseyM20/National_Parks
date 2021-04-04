@@ -48,7 +48,7 @@ public class LoginController {
 			return "register";
 		}
 		// if no errors:
-		System.out.println(user.toString());
+		System.out.println("New user created: " + user.toString());
 //		user.setPassword(user.getPassword());	// encrypt here, then save.
 		userService.addUserService(user);
 		return "redirect:/login";
@@ -66,7 +66,7 @@ public class LoginController {
 		User user = userService.findUserByEmailService(email);
 		System.out.println("Coming from processLogin method: " + user.toString());
 		if (user != null && password.equals(user.getPassword())) {	// decrypt password here.
-			System.out.println("Login succeeded.");
+			System.out.println("Login succeeded. User authenticated: " + user.toString());
 			session.setAttribute("currentUser", user);
 			return "redirect:/home";
 		}

@@ -35,17 +35,17 @@ public class Main {
 //		
 //		User u1 = USer.findUserByEmailService("hello@world.com");
 //		User u2 = USer.findUserByEmailService("funguy@fungi.com");
-//		User u3 = USer.findUserByEmailService("jaxy@thedog.com");
+		User u3 = USer.findUserByEmailService("jaxy@thedog.com");
 //		
 //		Park park1 = parkSer.getParkByIdService(50);
-//		Park park2 = parkSer.getParkByIdService(18);
+		Park park2 = parkSer.getParkByIdService(18);
 //		Park park3 = parkSer.getParkByIdService(3);
 //		Park park4 = parkSer.getParkByIdService(56);
 //		
 //		Bucket_Been been1 = new Bucket_Been(park1, u1, true, false, journal1);
-//		Bucket_Been been2 = new Bucket_Been(park2, u2, true, false, null);
+		Bucket_Been been2 = new Bucket_Been(park2, u3, true, false, null);
 //		BBSer.addBBParkService(been1);
-//		BBSer.addBBParkService(been2);
+		BBSer.addBBParkService(been2);
 //		
 //		BBSer.getUserBeenService(1);
 //		BBSer.getUserBeenService(2);
