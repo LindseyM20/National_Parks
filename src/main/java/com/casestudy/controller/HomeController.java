@@ -44,8 +44,9 @@ public class HomeController {
 		Park park = parkService.getParkByIdService(park_id);
 		Bucket_Been parkToAdd = new Bucket_Been(park, user, false, false, null);
 		bbService.addBBParkService(parkToAdd);
-		// Todo: if park is already in bucket_been table, alert user somehow
-		return "home";
+		// Todo: if park is already in bucketlist, alert user somehow
+		// Todo: make it so page doesn't reload
+		return "redirect:/home";
 	}
 	
 	// How to do this so both buttons call the same function?
@@ -55,8 +56,9 @@ public class HomeController {
 		Park park = parkService.getParkByIdService(park_id);
 		Bucket_Been parkToAdd = new Bucket_Been(park, user, true, false, null);
 		bbService.addBBParkService(parkToAdd);
-		// Todo: if park is already in bucket_been table, alert user somehow
-		return "home";
+		// Todo: if park is already in been list, alert user somehow
+		// Todo: make it so page doesn't reload
+		return "redirect:/home";
 	}
 	
 

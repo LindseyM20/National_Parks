@@ -10,6 +10,8 @@
 <meta charset="ISO-8859-1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<spring:url value="/resources/css/reset.css" var="resetCss" />
+<link href="${resetCss}" rel="stylesheet" />
 <script src="https://kit.fontawesome.com/c5b83037af.js"
 	crossorigin="anonymous"></script>
 <!-- <script defer src="./js/homepage2.js"></script> -->
@@ -30,9 +32,26 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
 	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
 	crossorigin="anonymous"></script>
+
 <spring:url value="/resources/css/main.css" var="mainCss" />
 <link href="${mainCss}" rel="stylesheet" />
 <title>National Parks Bucket/Been List | Home</title>
+<style>
+
+	form {
+		display: inline-block;
+	}
+	form.beenBtn {
+		margin: -5px -27px 20px;
+
+	}
+	@media all and (max-width:30em){
+	  form {
+	    display: block;
+	    margin :0.4em auto;
+	  }
+	}
+</style>
 </head>
 <body>
 	<%-- <%@ include file="nav_bar2.html" %>
@@ -45,7 +64,7 @@
 				class="button1 beenBtn"> Been List </a>
 		</nav>
 	</div>
-	
+
 	<div id="container">
 		<ul id="parkList" class="thumbnails">
 			<c:forEach items="${parks}" var="park">
@@ -57,17 +76,20 @@
 						<h2 class="parkTitle">${park.getName()}</h2>
 						<p class="parkSummary">${park.getSummary()}</p>
 
-						<form:form action="./home1?park_id=${park.getId()}" method="POST" >
-							<input class="bucketBtn button1 button2" name="park_id" 
-								<%-- %>id="${park.getId()}"--%>
-								value="<i class='fas fa-plus'></i>  Bucket List"
-								type="submit" />
+						<form:form action="./home1?park_id=${park.getId()}" method="POST">
+							<a class="button1 button2"> <input name="park_id"
+								type="submit" value="+ Bucket List"
+								style="background-color: rgb(37, 39, 44, 0)" <%-- id="${park.getId()}"--%>
+								/>
+							</a>
 						</form:form>
-						<form:form action="./home2?park_id=${park.getId()}" method="POST" >
-							<input class="beenBtn button1 button2" name="park_id" 
-								<%-- %>id="${park.getId()}"--%>
-								value=" <%-- %><i class="fas fa-plus"></i> --%> Been List"
-								type="submit" /> 
+						<form:form class="beenBtn" action="./home2?park_id=${park.getId()}" method="POST">
+							<a class="button1 button2"> <input name="park_id"
+								type="submit" value="+ Been List"
+								style="background-color: rgb(37, 39, 44, 0)" <%-- id="${park.getId()}"--%>
+								/>
+								<%-- <i class="fas fa-plus"></i> --%>
+							</a>
 						</form:form>
 					</div>
 				</li>

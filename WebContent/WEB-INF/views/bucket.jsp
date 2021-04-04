@@ -16,16 +16,20 @@
 		crossorigin="anonymous">
   	<spring:url value="/resources/css/main.css" var="mainCss" />
 	<link href="${mainCss}" rel="stylesheet" />
-	<spring:url value="/resources/css/lists.css" var="listCss" />
-	<link href="${listCss}" rel="stylesheet" />
+	<style>
+		h1, h4 {
+			text-align: center;
+			color: white;
+			margin: 42px;
+		}
+	</style>
 	<title>National Parks Bucket List</title>
 </head>
 <body>
 	<%@ include file="nav_bar2.html" %>
-	<!-- NEED TO GET user WORKING -->
-	<h1 style="color: white">${user.getName()}'s Bucket List</h1>
-	
-	 	<div id="container">
+	<h1>Welcome to your Bucket List, ${user.getName()}!</h1>
+	<h4>Here, you can view the parks you've added to your bucket list, add journal entries to keep track of travel tips, and check parks off once you've visited them! </h4>
+	<div id="container">
 		<ul id="parkList" class="thumbnails">
 			<c:forEach items="${bucketParks}" var="park">
 				<spring:url value="/resources${park.getPhotoLocal()}" var="photoLocal" />

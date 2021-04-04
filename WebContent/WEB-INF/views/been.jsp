@@ -18,14 +18,33 @@
 	<link href="${mainCss}" rel="stylesheet" />
 	<spring:url value="/resources/css/lists.css" var="listCss" />
 	<link href="${listCss}" rel="stylesheet" />
+	<style>
+		h1, h4 {
+			text-align: center;
+			color: white;
+			margin: 42px;
+		}
+		form {
+			display: inline-block;
+		}
+		form.beenBtn {
+			margin: -5px -27px 20px;
+	
+		}
+		@media all and (max-width:30em){
+		  form {
+		    display: block;
+		    margin :0.4em auto;
+		  }
+		}
+	</style>
 	<title>National Parks Been List</title>
 </head>
 <body>
 	<%@ include file="nav_bar2.html" %>
-	<!-- NEED TO GET user WORKING -->
-	<h1 style="color: white">${user.getName()}'s Been List</h1>
-	
-	 	<div id="container">
+	<h1>Welcome to your Been List, ${user.getName()}!</h1>
+	<h4>Here, you can view the parks you've visited, journal about your experiences, and reminisce!</h4>
+	<div id="container">
 		<ul id="parkList" class="thumbnails">
 			<c:forEach items="${beenParks}" var="park">
 				<spring:url value="/resources${park.getPhotoLocal()}" var="photoLocal" />
@@ -34,10 +53,20 @@
 						<img src="${photoLocal}" alt="${park.getName()}">
 						<h2 class="parkTitle">${park.getName()}</h2>
 						<p class="parkSummary">${park.getSummary()}</p>
-						<%-- in javascript, buttons had an id for onclick functionality. How to do w/ java? --%>
+						<%-- To go back to this, get rid of style in head. 
 						<form:form action="./been" method="post" modelAttribute="park">
 							<a href="./journal" class="bucketBtn button1 button2" id="${park.getId()}">
 								<i class="fas fa-plus"></i> Journal</a>
+							<a class="beenBtn button1 button2" id="${park.getId()}">
+								<i class="fas fa-minus"></i> Remove</a>
+						</form:form>
+						--%>
+						
+						<form:form action="./been" method="post" modelAttribute="park">
+							<a href="./journal" class="bucketBtn button1 button2" id="${park.getId()}">
+								<i class="fas fa-plus"></i> Journal</a>
+						</form:form>
+						<form:form class="beenBtn" action="./been" method="post" modelAttribute="park">
 							<a class="beenBtn button1 button2" id="${park.getId()}">
 								<i class="fas fa-minus"></i> Remove</a>
 						</form:form>
