@@ -62,7 +62,6 @@ public class LoginController {
 	public String processLogin(@RequestParam("email") String email, 
 			@RequestParam("password") String password, Model model, HttpSession session) {
 		User user = userService.findUserByEmailService(email);
-		System.out.println("Coming from processLogin method: " + user.toString());
 		if (user != null) {
 			if (password.equals(user.getPassword())) { // decrypt password here.
 				System.out.println("Login succeeded. User authenticated: " + user.toString());
@@ -76,6 +75,12 @@ public class LoginController {
 		System.out.println("LOGIN FAILED: NO USER WITH THAT EMAIL.");
 		model.addAttribute("loginFailedMessage", "Login Failed");
 		return "login";
+	}
+	
+	@GetMapping("/logout")
+	public String logoutShowIndexPage(HttpSession session) {
+		session.invalidate();
+		return "redirect:/";
 	}
 	
 //	@GetMapping("/home")

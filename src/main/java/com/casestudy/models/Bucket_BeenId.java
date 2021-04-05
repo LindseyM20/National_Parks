@@ -60,6 +60,11 @@ public class Bucket_BeenId implements Serializable{
 			return false;
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return "Bucket_BeenId [park_id=" + park_id + ", user_id=" + user_id + "]";
+	}
 	
 	
 	

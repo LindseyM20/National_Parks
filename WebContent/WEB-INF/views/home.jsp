@@ -68,16 +68,16 @@
 						<form:form action="./home1?park_id=${park.getId()}" method="POST">
 							<a class="button1 button2"> 
 								<input name="park_id"
-								type="submit" value="+ Bucket List"
-								<%-- style="background-color: rgb(37, 39, 44, 0)" id="${park.getId()}"--%>
+									type="submit" 
+									value="+ Bucket List"
 								/>
 							</a>
 						</form:form>
 						<form:form class="beenBtn" action="./home2?park_id=${park.getId()}" method="POST">
 							<a class="button1 button2 beenBtn"> 
 								<input name="park_id"
-								type="submit" value="+ Been List"
-								style="background-color: rgb(37, 39, 44, 0)" <%-- id="${park.getId()}"--%>
+									type="submit" 
+									value="+ Been List"
 								/>
 								<%-- <i class="fas fa-plus"></i> --%>
 							</a>
