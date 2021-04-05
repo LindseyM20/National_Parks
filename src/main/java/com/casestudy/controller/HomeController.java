@@ -1,5 +1,6 @@
 package com.casestudy.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -10,41 +11,100 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.casestudy.dao.UserDao;
 import com.casestudy.models.Bucket_Been;
 import com.casestudy.models.Journal;
+import com.casestudy.models.Park;
 import com.casestudy.models.User;
 import com.casestudy.service.Bucket_BeenService;
+import com.casestudy.service.ParkService;
 import com.casestudy.service.UserService;
 
 @Controller
 public class HomeController {
-	Bucket_BeenService bbServ = new Bucket_BeenService();
+	Bucket_BeenService bbService = new Bucket_BeenService();
+	ParkService parkService = new ParkService();
 	
-	//What happens when a user clicks "add to been" on a park
-	// GET HELP ON THIS
-	@PostMapping("/home")
-	public String processBeen(@RequestParam("park_id") Integer park_id, HttpSession session) {
-		User user = (User) session.getAttribute("currentUser");
-		
-		// check to see if park is already in bucket_been table? or assume it can't be added twice?
-		//REPLACE 60. How to grab park's id?
-		// Now the first 2 arguments need to be a Park and a User
-//		Bucket_Been park = new Bucket_Been(60, user.getId(), true, false, null);
+	@GetMapping("/home")
+	public String showHomePage(Model model, HttpSession session) {
+		User user = (User) session.getAttribute("currentUser"); //use this to display user's name
+		List<Park> parks = parkService.getAllParksService();	// change this later so park isn't hardcoded.
+		model.addAttribute("user", user);
+		model.addAttribute("parks", parks);
+		return "home";
+	}
 
-		return "login";
+	@PostMapping("/home1")
+	public String processAddBucket(@RequestParam("park_id") int park_id, HttpSession session) {
+		User user = (User) session.getAttribute("currentUser");
+		Park park = parkService.getParkByIdService(park_id);
+		Bucket_Been parkToAdd = new Bucket_Been(park, user, false, null);
+		bbService.addBBParkService(parkToAdd);
+		// Todo: if park is already in bucketlist, alert user somehow
+		// Todo: make it so page doesn't reload
+		return "redirect:/home";
 	}
 	
-	// Display the been list (should this stuff go in the service instead?)
-	@GetMapping("/been")
-	public String showBeenPage(HttpSession session) {
+	// How to do this so both buttons call the same function?
+	@PostMapping("/home2")
+	public String processAddBeen(@RequestParam("park_id") int park_id, HttpSession session) {
 		User user = (User) session.getAttribute("currentUser");
-		List<Bucket_Been> beenList = bbServ.getUserBeenService(user.getId());
-//		How to save the list so jsp can render it? session attribute?
-//		session.setAttribute("beenParks", beenList);
+		Park park = parkService.getParkByIdService(park_id);
+		Bucket_Been parkToAdd = new Bucket_Been(park, user, true, null);
+		bbService.addBBParkService(parkToAdd);
+		// Todo: if park is already in been list, alert user somehow
+		// Todo: make it so page doesn't reload
+		return "redirect:/home";
+	}
+	
+
+	
+	// Display the been list
+	@GetMapping("/been")
+	public String showBeenPage(HttpSession session, Model model) {
+		User user = (User) session.getAttribute("currentUser");
+		List<Bucket_Been> beenList = bbService.getUserBeenService(user.getId());
+		// map beenList to a list of Park type
+		List<Park> beenParks = new ArrayList<Park>();
+		for (Bucket_Been bb : beenList) {
+			int park_id = bb.getPrimaryKey().getPark_id();
+			beenParks.add(parkService.getParkByIdService(park_id));
+		}
+		model.addAttribute("user", user);
+		model.addAttribute("beenParks", beenParks);
+		
 		return "been";
+	}
+	
+	// Display the been list
+	@GetMapping("/bucket")
+	public String showBucketPage(HttpSession session, Model model) {
+		User user = (User) session.getAttribute("currentUser");
+		List<Bucket_Been> bucketList = bbService.getUserBucketService(user.getId());
+		// map bucketList to a list of Park type
+		List<Park> bucketParks = new ArrayList<Park>();
+		for (Bucket_Been bb : bucketList) {
+			int park_id = bb.getPrimaryKey().getPark_id();
+			bucketParks.add(parkService.getParkByIdService(park_id));
+		}
+		model.addAttribute("user", user);
+		model.addAttribute("bucketParks", bucketParks);
+		return "bucket";
+	}
+	
+	@PostMapping("/bucket2")
+	public String processMoveToBeen(@RequestParam("park_id") int park_id, HttpSession session) {
+		User user = (User) session.getAttribute("currentUser");
+//		Park park = parkService.getParkByIdService(park_id);
+		bbService.updateBBParkVisitedService(park_id, user.getId());
+//		Bucket_Been bbToEdit = (Bucket_Been) bbService.getBBParkService(park_id, user.getId());
+//		bbToEdit.setVisited(true);
+		// Keep the page reload
+		return "redirect:/bucket";
 	}
 	
 //	@PostMapping("/been")

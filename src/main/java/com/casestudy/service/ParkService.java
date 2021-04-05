@@ -11,4 +11,8 @@ public class ParkService {
 	public List<Park> getAllParksService() {
 		return pDao.getAllParks();
 	}
+	
+	public Park getParkByIdService(int id) {
+		return pDao.getParkById(id);
+	}
 }

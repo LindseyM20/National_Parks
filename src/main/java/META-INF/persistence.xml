@@ -5,8 +5,10 @@
 		<class>com.casestudy.models.User</class>
 		<class>com.casestudy.models.Park</class>
 		<class>com.casestudy.models.Bucket_Been</class>
-		<!-- <class>com.casestudy.models.Bucket_BeenId</class> Should I have this? -->
 		<class>com.casestudy.models.Journal</class>
+		<!--  <class>com.casestudy.models.Bucket_BeenId</class> Should I have this?
+		<exclude-unlisted-classes>true</exclude-unlisted-classes> -->
+		
 		
 	
 		<!-- Properties -->
@@ -19,6 +21,7 @@
 			<!-- EclipseLink configuration -->
 			<property name="eclipselink.logging.level" value="INFO"/>
 			<property name="eclipselink.ddl-generation" value="create-or-extend-tables" />
+			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
 		</properties>
 	</persistence-unit>
 </persistence>

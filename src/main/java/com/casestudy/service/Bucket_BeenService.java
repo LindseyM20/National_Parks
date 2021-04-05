@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.casestudy.dao.Bucket_BeenDao;
 import com.casestudy.models.Bucket_Been;
+import com.casestudy.models.User;
 
 public class Bucket_BeenService {
 	private Bucket_BeenDao bbDao = new Bucket_BeenDao();
@@ -16,8 +17,8 @@ public class Bucket_BeenService {
 		return bbDao.getBBPark(park_id, user_id);
 	}
 
-	public void updateBBParkService(int park_id, int user_id) {
-		bbDao.updateBBPark(park_id, user_id);
+	public void updateBBParkVisitedService(int park_id, int user_id) {
+		bbDao.updateBBParkVisited(park_id, user_id);
 	}
 
 	public void deleteBBParkService(int park_id, int user_id) {

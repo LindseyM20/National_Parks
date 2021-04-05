@@ -18,6 +18,18 @@ public class ParkDao extends DBConnection implements ParkDaoI {
 			e.printStackTrace();
 		}
 		return null;
-		
+	}
+	
+	@Override
+	public Park getParkById(int id) {
+		try {
+			this.connect();
+			Park park = em.find(Park.class, id);
+			this.disconnect();
+			return park;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

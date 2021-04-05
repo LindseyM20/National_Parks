@@ -3,6 +3,7 @@ package com.casestudy.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,8 +27,9 @@ public class LoginController {
 	ParkService parkService = new ParkService();
 	
 	@GetMapping("/")
-	public String showIndexPage() {
+	public String showIndexPage(Model model) {
 		List<Park> parks = parkService.getAllParksService();
+		model.addAttribute("parks", parks);
 		return "index";
 	}
 	
@@ -38,20 +40,20 @@ public class LoginController {
 	}
 	
 	@PostMapping("/register")
-	public String processRegistration(@ModelAttribute("user") User user,
+	public String processRegistration(@Valid @ModelAttribute("user") User user,
 			BindingResult result) {
 		if (result.hasErrors()) {
 			return "register";
 		}
 		// if no errors:
-		System.out.println(user.toString());
+		System.out.println("New user created: " + user.toString());
 //		user.setPassword(user.getPassword());	// encrypt here, then save.
 		userService.addUserService(user);
 		return "redirect:/login";
 	}
 
 	@GetMapping("/login")
-	public String showLoginPage(Model model) {
+	public String showLoginPage() {
 //		model.addAttribute("user", new User());
 		return "login";
 	}
@@ -60,16 +62,36 @@ public class LoginController {
 	public String processLogin(@RequestParam("email") String email, 
 			@RequestParam("password") String password, Model model, HttpSession session) {
 		User user = userService.findUserByEmailService(email);
-		System.out.println(user);
-		System.out.println("Coming from line 71 " + user.toString());
-		if (user != null && password.equals(user.getPassword())) {	// decrypt password here.
-			session.setAttribute("currentUser", user);
-			return "home";
+		if (user != null) {
+			if (password.equals(user.getPassword())) { // decrypt password here.
+				System.out.println("Login succeeded. User authenticated: " + user.toString());
+				session.setAttribute("currentUser", user);
+				return "redirect:/home";
+			}
+			System.out.println("LOGIN FAILED: INCORRECT PASSWORD.");
+			model.addAttribute("loginFailedMessage", "Login Failed");
+			return "login";
 		}
-		System.out.println("Login failed.");
+		System.out.println("LOGIN FAILED: NO USER WITH THAT EMAIL.");
 		model.addAttribute("loginFailedMessage", "Login Failed");
 		return "login";
 	}
+	
+	@GetMapping("/logout")
+	public String logoutShowIndexPage(HttpSession session) {
+		session.invalidate();
+		return "redirect:/";
+	}
+	
+//	@GetMapping("/home")
+//	public String showHomePage(Model model) {
+//		List<Park> parks = parkService.getAllParksService();
+//		model.addAttribute("parks", parks);
+////		for (Park p: parks) {
+////			System.out.println(p);
+////		}
+//		return "home";
+//	}
 	
 //	@GetMapping("/saveHardCodedUser")
 //	public String saveHardCodedUser() {
