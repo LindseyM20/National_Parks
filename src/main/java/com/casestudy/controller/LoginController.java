@@ -3,6 +3,7 @@ package com.casestudy.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,9 +30,6 @@ public class LoginController {
 	public String showIndexPage(Model model) {
 		List<Park> parks = parkService.getAllParksService();
 		model.addAttribute("parks", parks);
-//		for (Park p: parks) {
-//			System.out.println(p);
-//		}
 		return "index";
 	}
 	
@@ -42,7 +40,7 @@ public class LoginController {
 	}
 	
 	@PostMapping("/register")
-	public String processRegistration(@ModelAttribute("user") User user,
+	public String processRegistration(@Valid @ModelAttribute("user") User user,
 			BindingResult result) {
 		if (result.hasErrors()) {
 			return "register";
@@ -55,7 +53,7 @@ public class LoginController {
 	}
 
 	@GetMapping("/login")
-	public String showLoginPage(Model model) {
+	public String showLoginPage() {
 //		model.addAttribute("user", new User());
 		return "login";
 	}
@@ -65,12 +63,17 @@ public class LoginController {
 			@RequestParam("password") String password, Model model, HttpSession session) {
 		User user = userService.findUserByEmailService(email);
 		System.out.println("Coming from processLogin method: " + user.toString());
-		if (user != null && password.equals(user.getPassword())) {	// decrypt password here.
-			System.out.println("Login succeeded. User authenticated: " + user.toString());
-			session.setAttribute("currentUser", user);
-			return "redirect:/home";
+		if (user != null) {
+			if (password.equals(user.getPassword())) { // decrypt password here.
+				System.out.println("Login succeeded. User authenticated: " + user.toString());
+				session.setAttribute("currentUser", user);
+				return "redirect:/home";
+			}
+			System.out.println("LOGIN FAILED: INCORRECT PASSWORD.");
+			model.addAttribute("loginFailedMessage", "Login Failed");
+			return "login";
 		}
-		System.out.println("Login failed.");
+		System.out.println("LOGIN FAILED: NO USER WITH THAT EMAIL.");
 		model.addAttribute("loginFailedMessage", "Login Failed");
 		return "login";
 	}

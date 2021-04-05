@@ -9,6 +9,8 @@
 	<meta charset="ISO-8859-1">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<spring:url value="/resources/css/reset.css" var="resetCss" />
+	<link href="${resetCss}" rel="stylesheet" />
 	<script src="https://kit.fontawesome.com/c5b83037af.js" crossorigin="anonymous"></script>
 	<link rel="stylesheet"
 		href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
@@ -21,6 +23,19 @@
 			text-align: center;
 			color: white;
 			margin: 42px;
+		}
+		form {
+			display: inline-block;
+		}
+		form.beenBtn {
+			margin: -5px -10px 20px;
+	
+		}
+		@media all and (max-width:30em){
+		  form {
+		    display: block;
+		    margin :0.4em auto;
+		  }
 		}
 	</style>
 	<title>National Parks Bucket List</title>
@@ -42,8 +57,15 @@
 						<form:form action="./been" method="post" modelAttribute="park">
 							<a href="./journal" class="bucketBtn button1 button2" id="${park.getId()}">
 								<i class="fas fa-plus"></i> Journal</a>
-							<a class="beenBtn button1 button2" id="${park.getId()}">
-								<i class="fas fa-check"></i> Move to Been</a>
+						</form:form>
+						<form:form class="beenBtn" action="./bucket2?park_id=${park.getId()}" method="POST">
+							<a class="beenBtn button1 button2">
+								<input name="park_id"
+									type="submit"
+									value="Move to Been"
+									style="background-color: rgb(37, 39, 44, 0)">
+								 <%-- <i class="fas fa-check"></i> --%>	 
+							</a>
 						</form:form>
 					</div>
 				</li>

@@ -42,7 +42,7 @@ public class HomeController {
 	public String processAddBucket(@RequestParam("park_id") int park_id, HttpSession session) {
 		User user = (User) session.getAttribute("currentUser");
 		Park park = parkService.getParkByIdService(park_id);
-		Bucket_Been parkToAdd = new Bucket_Been(park, user, false, false, null);
+		Bucket_Been parkToAdd = new Bucket_Been(park, user, false, null);
 		bbService.addBBParkService(parkToAdd);
 		// Todo: if park is already in bucketlist, alert user somehow
 		// Todo: make it so page doesn't reload
@@ -54,7 +54,7 @@ public class HomeController {
 	public String processAddBeen(@RequestParam("park_id") int park_id, HttpSession session) {
 		User user = (User) session.getAttribute("currentUser");
 		Park park = parkService.getParkByIdService(park_id);
-		Bucket_Been parkToAdd = new Bucket_Been(park, user, true, false, null);
+		Bucket_Been parkToAdd = new Bucket_Been(park, user, true, null);
 		bbService.addBBParkService(parkToAdd);
 		// Todo: if park is already in been list, alert user somehow
 		// Todo: make it so page doesn't reload
@@ -94,6 +94,17 @@ public class HomeController {
 		model.addAttribute("user", user);
 		model.addAttribute("bucketParks", bucketParks);
 		return "bucket";
+	}
+	
+	@PostMapping("/bucket2")
+	public String processMoveToBeen(@RequestParam("park_id") int park_id, HttpSession session) {
+		User user = (User) session.getAttribute("currentUser");
+//		Park park = parkService.getParkByIdService(park_id);
+		bbService.updateBBParkVisitedService(park_id, user.getId());
+//		Bucket_Been bbToEdit = (Bucket_Been) bbService.getBBParkService(park_id, user.getId());
+//		bbToEdit.setVisited(true);
+		// Keep the page reload
+		return "redirect:/bucket";
 	}
 	
 //	@PostMapping("/been")

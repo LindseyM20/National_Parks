@@ -9,6 +9,8 @@
 	<meta charset="ISO-8859-1">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<spring:url value="/resources/css/reset.css" var="resetCss" />
+	<link href="${resetCss}" rel="stylesheet" />
 	<script src="https://kit.fontawesome.com/c5b83037af.js" crossorigin="anonymous"></script>
 	<link rel="stylesheet"
 		href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
@@ -16,8 +18,6 @@
 		crossorigin="anonymous">
   	<spring:url value="/resources/css/main.css" var="mainCss" />
 	<link href="${mainCss}" rel="stylesheet" />
-	<spring:url value="/resources/css/lists.css" var="listCss" />
-	<link href="${listCss}" rel="stylesheet" />
 	<style>
 		h1, h4 {
 			text-align: center;

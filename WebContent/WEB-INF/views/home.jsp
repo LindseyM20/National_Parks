@@ -7,51 +7,37 @@
 
 <html lang="en">
 <head>
-<meta charset="ISO-8859-1">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<spring:url value="/resources/css/reset.css" var="resetCss" />
-<link href="${resetCss}" rel="stylesheet" />
-<script src="https://kit.fontawesome.com/c5b83037af.js"
-	crossorigin="anonymous"></script>
-<!-- <script defer src="./js/homepage2.js"></script> -->
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-	crossorigin="anonymous">
-<!-- Optional theme -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
-	integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
-	crossorigin="anonymous">
-<!-- Latest compiled and minified JavaScript -->
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-	crossorigin="anonymous"></script>
-
-<spring:url value="/resources/css/main.css" var="mainCss" />
-<link href="${mainCss}" rel="stylesheet" />
-<title>National Parks Bucket/Been List | Home</title>
-<style>
-
-	form {
-		display: inline-block;
-	}
-	form.beenBtn {
-		margin: -5px -27px 20px;
-
-	}
-	@media all and (max-width:30em){
-	  form {
-	    display: block;
-	    margin :0.4em auto;
-	  }
-	}
-</style>
+	<meta charset="ISO-8859-1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<spring:url value="/resources/css/reset.css" var="resetCss" />
+	<link href="${resetCss}" rel="stylesheet" />
+	<script src="https://kit.fontawesome.com/c5b83037af.js" crossorigin="anonymous"></script>
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+		integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+		crossorigin="anonymous">
+	<spring:url value="/resources/css/main.css" var="mainCss" />
+	<link href="${mainCss}" rel="stylesheet" />
+	<title>National Parks Bucket/Been List | Home</title>
+	<style>
+		form {
+			display: inline-block;
+		}
+		form.beenBtn {
+			margin: -5px -10px 20px;
+	
+		}
+		@media all and (max-width:30em){
+		  form {
+		    display: block;
+		    margin :0.4em auto;
+		  }
+		}
+		
+	</style>
 </head>
 <body>
 	<%-- <%@ include file="nav_bar2.html" %>
@@ -60,16 +46,19 @@
 	<div id="hero">
 		<h1 id="mainTitle">National Parks</h1>
 		<nav>
-			<a href="./bucket" class="button1"> Bucket List </a> <a href="./been"
-				class="button1 beenBtn"> Been List </a>
+			<a href="./bucket" class="button1"> Bucket List </a> 
+			<a href="./been" class="button1" id="beenListBtn"> Been List </a>
 		</nav>
 	</div>
+	
+	<!-- take this back out later - just a test
+	<a href="./login" id="loginBtn" class="button1"> Log In </a>
+  -->
 
 	<div id="container">
 		<ul id="parkList" class="thumbnails">
 			<c:forEach items="${parks}" var="park">
-				<spring:url value="/resources${park.getPhotoLocal()}"
-					var="photoLocal" />
+				<spring:url value="/resources${park.getPhotoLocal()}" var="photoLocal" />
 				<li class="parkLi" style="margin: 30px">
 					<div class="thumbnail">
 						<img src="${photoLocal}" alt="${park.getName()}">
@@ -77,14 +66,16 @@
 						<p class="parkSummary">${park.getSummary()}</p>
 
 						<form:form action="./home1?park_id=${park.getId()}" method="POST">
-							<a class="button1 button2"> <input name="park_id"
+							<a class="button1 button2"> 
+								<input name="park_id"
 								type="submit" value="+ Bucket List"
-								style="background-color: rgb(37, 39, 44, 0)" <%-- id="${park.getId()}"--%>
+								<%-- style="background-color: rgb(37, 39, 44, 0)" id="${park.getId()}"--%>
 								/>
 							</a>
 						</form:form>
 						<form:form class="beenBtn" action="./home2?park_id=${park.getId()}" method="POST">
-							<a class="button1 button2"> <input name="park_id"
+							<a class="button1 button2 beenBtn"> 
+								<input name="park_id"
 								type="submit" value="+ Been List"
 								style="background-color: rgb(37, 39, 44, 0)" <%-- id="${park.getId()}"--%>
 								/>

@@ -35,9 +35,6 @@ public class Bucket_Been implements Serializable {
 	
 	@Column(nullable=false)
 	private Boolean visited;	// This is what determines bucket or been.
-	
-	@Column(nullable=false)
-	private Boolean visit_again;// How to assign default: false? (This allows parks in been list to be added also to bucket list)
 
 	@OneToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name="journal_id", nullable=true)
@@ -45,13 +42,12 @@ public class Bucket_Been implements Serializable {
 
 	public Bucket_Been() {}
 
-	public Bucket_Been(Park park, User user, Boolean visited, Boolean visit_again, Journal journal_id) {
+	public Bucket_Been(Park park, User user, Boolean visited, Journal journal_id) {
 		super();
 		this.primaryKey = new Bucket_BeenId(park.getId(), user.getId());
 		this.park = park;
 		this.user = user;
 		this.visited = visited;
-		this.visit_again = visit_again;
 		this.journal_id = journal_id;
 	}
 
@@ -87,14 +83,6 @@ public class Bucket_Been implements Serializable {
 		this.visited = visited;
 	}
 
-	public Boolean getVisit_again() {
-		return visit_again;
-	}
-
-	public void setVisit_again(Boolean visit_again) {
-		this.visit_again = visit_again;
-	}
-
 	public Journal getJournal_id() {
 		return journal_id;
 	}
@@ -112,7 +100,6 @@ public class Bucket_Been implements Serializable {
 		result = prime * result + ((park == null) ? 0 : park.hashCode());
 		result = prime * result + ((primaryKey == null) ? 0 : primaryKey.hashCode());
 		result = prime * result + ((user == null) ? 0 : user.hashCode());
-		result = prime * result + ((visit_again == null) ? 0 : visit_again.hashCode());
 		result = prime * result + ((visited == null) ? 0 : visited.hashCode());
 		return result;
 	}
@@ -146,11 +133,6 @@ public class Bucket_Been implements Serializable {
 				return false;
 		} else if (!user.equals(other.user))
 			return false;
-		if (visit_again == null) {
-			if (other.visit_again != null)
-				return false;
-		} else if (!visit_again.equals(other.visit_again))
-			return false;
 		if (visited == null) {
 			if (other.visited != null)
 				return false;
@@ -162,7 +144,7 @@ public class Bucket_Been implements Serializable {
 	@Override
 	public String toString() {
 		return "Bucket_Been [primaryKey=" + primaryKey + ", park=" + park + ", user=" + user + ", visited=" + visited
-				+ ", visit_again=" + visit_again + ", journal_id=" + journal_id + "]";
+				+ ", journal_id=" + journal_id + "]";
 	}
 	
 	

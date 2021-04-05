@@ -17,8 +17,8 @@ public class Bucket_BeenService {
 		return bbDao.getBBPark(park_id, user_id);
 	}
 
-	public void updateBBParkService(int park_id, int user_id) {
-		bbDao.updateBBPark(park_id, user_id);
+	public void updateBBParkVisitedService(int park_id, int user_id) {
+		bbDao.updateBBParkVisited(park_id, user_id);
 	}
 
 	public void deleteBBParkService(int park_id, int user_id) {

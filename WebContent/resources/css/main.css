@@ -34,8 +34,9 @@ ul {
   font-size: 10vw;
 }
 
-
-div.button1 {
+/*added a.button1, changed div to form
+form.button1, a.button1 {*/
+a.button1 {
   display:inline-block;
   padding:0.35em 1.2em;
   border:0.1em solid #FFFFFF;
@@ -73,7 +74,7 @@ a.button1:hover {
   right: 0;
 }
 
-div.beenBtn, .addBeen {
+.beenBtn, .addBeen {
   /* float: right; */
   margin: 10px;
   padding: 4.9px 10px;
@@ -115,7 +116,7 @@ a.button2:visited {
 }
 
 @media screen and (min-width: 480px) {
-  .beenBtn, .addBeen {
+  form.beenBtn, #beenListBtn, .addBeen {
     float: right;
   }
 }
