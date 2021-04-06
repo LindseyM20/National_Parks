@@ -6,7 +6,7 @@
 		<class>com.casestudy.models.Park</class>
 		<class>com.casestudy.models.Bucket_Been</class>
 		<class>com.casestudy.models.Journal</class>
-		<!--  <class>com.casestudy.models.Bucket_BeenId</class> Should I have this?
+		<class>com.casestudy.models.Bucket_BeenId</class><!--  Should I have this?
 		<exclude-unlisted-classes>true</exclude-unlisted-classes> -->
 		
 		

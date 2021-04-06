@@ -21,6 +21,7 @@ import com.casestudy.models.Journal;
 import com.casestudy.models.Park;
 import com.casestudy.models.User;
 import com.casestudy.service.Bucket_BeenService;
+import com.casestudy.service.JournalService;
 import com.casestudy.service.ParkService;
 import com.casestudy.service.UserService;
 
@@ -28,6 +29,7 @@ import com.casestudy.service.UserService;
 public class HomeController {
 	Bucket_BeenService bbService = new Bucket_BeenService();
 	ParkService parkService = new ParkService();
+	JournalService journalService = new JournalService();
 	
 	@GetMapping("/home")
 	public String showHomePage(Model model, HttpSession session) {
@@ -105,6 +107,55 @@ public class HomeController {
 //		bbToEdit.setVisited(true);
 		// Keep the page reload
 		return "redirect:/bucket";
+	}
+	
+	@PostMapping("/bucketjournal")
+	public String showJournalPage(@RequestParam("park_id") int park_id, HttpSession session, Model model) {
+		User user = (User) session.getAttribute("currentUser"); //use this to display user's name
+		Park park = parkService.getParkByIdService(park_id);
+		Bucket_Been bbPark = bbService.getBBParkService(park_id, user.getId());
+		if (bbPark.getJournal_id() != null) {
+			String journalEntry = bbPark.getJournal_id().getEntry();
+			model.addAttribute("journalEntry", journalEntry);
+			model.addAttribute("buttonText", "Edit");
+			model.addAttribute("textareaText", journalEntry);
+		} else {
+			model.addAttribute("journalEntry", "No journal entry yet... Write one?");
+			model.addAttribute("buttonText", "Write");
+			model.addAttribute("textareaText", null);
+			model.addAttribute("journal", new Journal());
+		}
+		model.addAttribute("park", park); // use this to display the park's name
+		return "journal";
+	}
+	
+//	@GetMapping("/journal_edit")
+//	public String showJournalEntryPage(Model model) {
+//		model.addAttribute("journalEntry", new Journal());
+//		return "journal_edit";
+//	}
+	
+	@PostMapping("/bucketjournalentry")
+	public String processJournalEntry(@RequestParam("park_id") int park_id, @RequestParam("newEntry") String entry, HttpSession session, Model model) {
+		User user = (User) session.getAttribute("currentUser"); //use this to display user's name
+		Park park = parkService.getParkByIdService(park_id);
+		
+		System.out.println(entry);
+//		//WHY is park null???
+		Bucket_Been bbPark = bbService.getBBParkService(park.getId(), user.getId());
+		// if a journal entry already exists for this user's bucketlist park, then edit the entry
+		if (bbPark.getJournal_id() != null) {
+			Journal journalFound = bbPark.getJournal_id();
+			Journal journalUpdated = new Journal(journalFound.getId(), entry);
+			journalService.updateJournalService(journalUpdated);
+		// else add a new journal
+		} else {
+			Journal newJournal = new Journal(entry);
+			journalService.addJournalService(newJournal);
+		}
+		model.addAttribute("park", park); // use this to display the park's name
+		
+		return "journal";
 	}
 	
 //	@PostMapping("/been")
