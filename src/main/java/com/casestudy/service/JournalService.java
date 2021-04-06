@@ -14,7 +14,7 @@ public class JournalService {
 		return jDao.getJournalById(id);
 	}
 	
-	public Journal updateJournalService(Journal journal) {
-		return jDao.updateJournal(journal);
+	public void updateJournalService(Journal journal) {
+		jDao.updateJournal(journal);
 	}
 }

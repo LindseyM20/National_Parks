@@ -95,6 +95,7 @@ public class HomeController {
 		}
 		model.addAttribute("user", user);
 		model.addAttribute("bucketParks", bucketParks);
+
 		return "bucket";
 	}
 	
@@ -139,22 +140,20 @@ public class HomeController {
 	public String processJournalEntry(@RequestParam("park_id") int park_id, @RequestParam("newEntry") String entry, HttpSession session, Model model) {
 		User user = (User) session.getAttribute("currentUser"); //use this to display user's name
 		Park park = parkService.getParkByIdService(park_id);
-		
-		System.out.println(entry);
-//		//WHY is park null???
-		Bucket_Been bbPark = bbService.getBBParkService(park.getId(), user.getId());
+		Bucket_Been bbPark = bbService.getBBParkService(park_id, user.getId());
+		model.addAttribute("journalEntry", entry);
 		// if a journal entry already exists for this user's bucketlist park, then edit the entry
 		if (bbPark.getJournal_id() != null) {
-			Journal journalFound = bbPark.getJournal_id();
-			Journal journalUpdated = new Journal(journalFound.getId(), entry);
-			journalService.updateJournalService(journalUpdated);
+			int journalFoundId = bbPark.getJournal_id().getId();
+			Journal journalUpdate = new Journal(journalFoundId, entry);
+			journalService.updateJournalService(journalUpdate);
 		// else add a new journal
 		} else {
 			Journal newJournal = new Journal(entry);
-			journalService.addJournalService(newJournal);
+			bbService.updateBBParkJournalService(park_id, user.getId(), newJournal);
 		}
+
 		model.addAttribute("park", park); // use this to display the park's name
-		
 		return "journal";
 	}
 	

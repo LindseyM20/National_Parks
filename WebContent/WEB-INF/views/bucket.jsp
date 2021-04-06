@@ -59,7 +59,7 @@
 							<a class="bucketBtn button1 button2">
 								<input name="park_id"
 									type="submit"
-									value="Journal">
+									value="Journal"> <!-- When I change to a GET method, the controller is putting the journal value into the URL and trying to use "Journal" as the parameter for park_id. Why? -->
 								<%-- <i class="fas fa-plus"></i> --%>
 							</a>
 						</form:form>

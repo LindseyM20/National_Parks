@@ -54,6 +54,7 @@
 	<!--  -->
 	<form:form action="./bucketjournalentry?park_id=${park.getId()}" method="post">
 		<textarea type="text" path="entry" name="newEntry" value="${textareaText}"></textarea>
+		<br />
 		<input type="submit" value="save" />
 	</form:form>
 	
