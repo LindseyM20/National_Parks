@@ -44,8 +44,7 @@
 	<%@ include file="nav_bar2.html" %>
 	<h1>Welcome to your Bucket List, ${user.getName()}!</h1>
 	<h4>Here, you can view the parks you've added to your bucket list, add journal entries to keep track of travel tips, and check parks off once you've visited them! </h4>
-	<div id="container" style="align-items: center">
-	<%-- WHY IS THIS NOT CENTERING ANYMORE????? --%>
+	<div id="container">
 		<ul id="parkList" class="thumbnails">
 			<c:forEach items="${bucketParks}" var="park">
 				<spring:url value="/resources${park.getPhotoLocal()}" var="photoLocal" />
@@ -55,7 +54,7 @@
 						<h2 class="parkTitle">${park.getName()}</h2>
 						<p class="parkSummary">${park.getSummary()}</p>
 						<%-- in javascript, buttons had an id for onclick functionality. How to do w/ java? --%>
-						<form:form action="./bucketjournal?park_id=${park.getId()}" method="POST">
+						<form:form action="./journal?park_id=${park.getId()}" method="POST">
 							<a class="bucketBtn button1 button2">
 								<input name="park_id"
 									type="submit"
@@ -67,8 +66,7 @@
 							<a class="beenBtn button1 button2">
 								<input name="park_id"
 									type="submit"
-									value="Move to Been"
-									style="background-color: rgb(37, 39, 44, 0)">
+									value="Move to Been">
 								 <%-- <i class="fas fa-check"></i> --%>	 
 							</a>
 						</form:form>

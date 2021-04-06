@@ -17,4 +17,8 @@ public class JournalService {
 	public void updateJournalService(Journal journal) {
 		jDao.updateJournal(journal);
 	}
+	
+	public boolean deleteJournalService(int id) {
+		return jDao.deleteJournal(id);
+	}
 }

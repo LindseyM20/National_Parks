@@ -31,6 +31,7 @@ public class HomeController {
 	ParkService parkService = new ParkService();
 	JournalService journalService = new JournalService();
 	
+	// Display the home page
 	@GetMapping("/home")
 	public String showHomePage(Model model, HttpSession session) {
 		User user = (User) session.getAttribute("currentUser"); //use this to display user's name
@@ -40,6 +41,7 @@ public class HomeController {
 		return "home";
 	}
 
+	// Add a park to user's bucket list
 	@PostMapping("/home1")
 	public String processAddBucket(@RequestParam("park_id") int park_id, HttpSession session) {
 		User user = (User) session.getAttribute("currentUser");
@@ -51,7 +53,7 @@ public class HomeController {
 		return "redirect:/home";
 	}
 	
-	// How to do this so both buttons call the same function?
+	// Add a park to user's been list
 	@PostMapping("/home2")
 	public String processAddBeen(@RequestParam("park_id") int park_id, HttpSession session) {
 		User user = (User) session.getAttribute("currentUser");
@@ -62,8 +64,6 @@ public class HomeController {
 		// Todo: make it so page doesn't reload
 		return "redirect:/home";
 	}
-	
-
 	
 	// Display the been list
 	@GetMapping("/been")
@@ -82,7 +82,7 @@ public class HomeController {
 		return "been";
 	}
 	
-	// Display the been list
+	// Display the bucket list
 	@GetMapping("/bucket")
 	public String showBucketPage(HttpSession session, Model model) {
 		User user = (User) session.getAttribute("currentUser");
@@ -102,31 +102,33 @@ public class HomeController {
 	@PostMapping("/bucket2")
 	public String processMoveToBeen(@RequestParam("park_id") int park_id, HttpSession session) {
 		User user = (User) session.getAttribute("currentUser");
-//		Park park = parkService.getParkByIdService(park_id);
 		bbService.updateBBParkVisitedService(park_id, user.getId());
-//		Bucket_Been bbToEdit = (Bucket_Been) bbService.getBBParkService(park_id, user.getId());
-//		bbToEdit.setVisited(true);
 		// Keep the page reload
 		return "redirect:/bucket";
 	}
 	
-	@PostMapping("/bucketjournal")
+	@PostMapping("/journal")
 	public String showJournalPage(@RequestParam("park_id") int park_id, HttpSession session, Model model) {
 		User user = (User) session.getAttribute("currentUser"); //use this to display user's name
 		Park park = parkService.getParkByIdService(park_id);
 		Bucket_Been bbPark = bbService.getBBParkService(park_id, user.getId());
+		String textareaText;
 		if (bbPark.getJournal_id() != null) {
 			String journalEntry = bbPark.getJournal_id().getEntry();
 			model.addAttribute("journalEntry", journalEntry);
-			model.addAttribute("buttonText", "Edit");
-			model.addAttribute("textareaText", journalEntry);
+//			model.addAttribute("buttonText", "Edit");
+			textareaText = journalEntry;
 		} else {
 			model.addAttribute("journalEntry", "No journal entry yet... Write one?");
-			model.addAttribute("buttonText", "Write");
-			model.addAttribute("textareaText", null);
+//			model.addAttribute("buttonText", "Write");
+			textareaText = null;
 			model.addAttribute("journal", new Journal());
 		}
 		model.addAttribute("park", park); // use this to display the park's name
+		model.addAttribute("bbPark", bbPark);
+		model.addAttribute("user", user);
+		model.addAttribute("journal", bbPark.getJournal_id());
+		model.addAttribute("textareaText", textareaText);
 		return "journal";
 	}
 	
@@ -136,7 +138,7 @@ public class HomeController {
 //		return "journal_edit";
 //	}
 	
-	@PostMapping("/bucketjournalentry")
+	@PostMapping("/journalentry")
 	public String processJournalEntry(@RequestParam("park_id") int park_id, @RequestParam("newEntry") String entry, HttpSession session, Model model) {
 		User user = (User) session.getAttribute("currentUser"); //use this to display user's name
 		Park park = parkService.getParkByIdService(park_id);
@@ -154,7 +156,41 @@ public class HomeController {
 		}
 
 		model.addAttribute("park", park); // use this to display the park's name
+		model.addAttribute("bbPark", bbPark);
+		model.addAttribute("user", user);
+		model.addAttribute("journal", bbPark.getJournal_id());
+		model.getAttribute("textareaText");
 		return "journal";
+	}
+	
+	@PostMapping("/deletejournal")
+	public String processDeleteJournal(@RequestParam("park_id") int park_id, HttpSession session, Model model) {
+		User user = (User) session.getAttribute("currentUser"); //use this to display user's name
+		Park park = parkService.getParkByIdService(park_id);
+		Bucket_Been bbPark = bbService.getBBParkService(park_id, user.getId());
+		Journal journal = bbPark.getJournal_id();
+		if (journal != null) {
+			int journalFoundId = bbPark.getJournal_id().getId();
+			bbService.updateBBParkJournalService(park_id, user.getId(), null);
+			journalService.deleteJournalService(journalFoundId);
+		// else add a new journal
+		} else {
+		}
+		model.addAttribute("park", park); // use this to display the park's name
+		model.addAttribute("bbPark", bbPark);
+		model.addAttribute("user", user);
+		model.addAttribute("journal", bbPark.getJournal_id());
+		model.getAttribute("textareaText");
+		return "journal";
+	}
+
+	@PostMapping("/removebeen")
+	public String processRemoveBeen(@RequestParam("park_id") int park_id, 
+								Model model, HttpSession session) {
+		User user =  (User) session.getAttribute("currentUser"); //use this to display user's name
+		bbService.deleteBBParkService(park_id, user.getId());
+		model.addAttribute("loginFailedMessage", "Login Failed");
+		return "redirect:/been";
 	}
 	
 //	@PostMapping("/been")

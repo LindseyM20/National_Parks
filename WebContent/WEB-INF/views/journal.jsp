@@ -28,64 +28,88 @@
 
 	<%@ include file="nav_bar2.html" %>
   <div id="tableContainer">
-    <h2 class="white">
-      <!-- Park name goes here (updated dynamically) -->
-      ${park.getName()}
+  <!-- Park name goes here (updated dynamically) -->
+    <h2 class="white">${park.getName()}
       <br />
     </h2>
     <p class="white" id="entry">${journalEntry}</p>
-    <%--
-    Display journal entry here if exists (doesn't work)
-    <c:if test="${journalEntry}">
-    	<p>${journalEntry}</p>
-    </c:if>
-    Display something else if journal doesn't exist
-    <c:if test="!${journalEntry}">
-    	<p>No journal entry yet!</p>
-    </c:if>
-    --%>
+	<br /><br />
     
-    <%-- This will be a button to write/edit --%>
-	<%-- <nav> --%>
-		<a class="button1" id="addBtn" onclick="add();"> ${buttonText} </a>
-		<!-- href="./journal_edit"  --> 
-	<%-- </nav> --%>
+    <%-- This is a button to write/edit --%>
+	<a class="button1" id="addBtn" onclick="add();"> ${bbPark.getJournal_id()==null ? "Write" : "Edit"}</a>
+	 
+	 
+
+	 
+	<c:if test="${bbPark.getJournal_id()!=null}">
+		<form:form id="form2" action="./deletejournal?park_id=${park.getId()}" method="post">
+			<!-- <textarea type="text" path="entry" name="newEntry" value="${journal.getEntry()!=null ? '' : journalEntry}"></textarea> -->
+			<a class="button1" id="deleteBtn" onclick="deleteJournal();"><input type="submit" value="Delete" /></a>
+		</form:form>
+	</c:if> 
 	
-	<!--  -->
-	<form:form action="./bucketjournalentry?park_id=${park.getId()}" method="post">
-		<textarea type="text" path="entry" name="newEntry" value="${textareaText}"></textarea>
+
+	
+	
+	<form:form id="form" style="display: none" action="./journalentry?park_id=${park.getId()}" method="post">
+	<%-- futile attempts to get the existing journal entry to show up in the textarea --%>
+		<textarea <%--type="text" path="entry"--%> name="newEntry" value="${textareaText}"></textarea>
+		<!-- <textarea type="text" path="entry" name="newEntry" value="${journal.getEntry()!=null ? '' : journalEntry}"></textarea> -->
 		<br />
-		<input type="submit" value="save" />
+		<a class="button1"><input type="submit" value="Save" /></a>
 	</form:form>
 	
   </div>
-  <!-- 
+  
   <script type="text/javascript">
-   function add() {
-     document.getElementById("addBtn").style.display = "none";
-     document.getElementById("entry").style.display = "none";
-     
-	 var form = document.createElement("form:form");
-	 form.setAttribute("action", "./bucketjournal");
-	 form.setAttribute("method", "post");
-	 form.setAttribute("modelAttribute", "journal");
-	 
-	 var submit = document.createElement("input")
-	 submit.setAttribute("type", "submit");
-	 submit.setAttribute("value", "save");
-	 
-     var textarea = document.createElement("textarea");
-     textarea.setAttribute("type", "text");
-     textarea.setAttribute("path", "entry");
-     textarea.setAttribute("name", "newEntry");
-     textarea.value = "${textareaText}";
-     
-     var container = document.getElementById("tableContainer");
-     container.appendChild(form);
-     form.appendChild(textarea);
-     form.appendChild(submit);
-   }
-</script>
- -->
+  function add() {
+
+	  document.getElementById("addBtn").style.display = "none";
+	  document.getElementById("entry").style.color = "gray"; //change this to display = "none" if you get entry displaying in textarea
+	  document.getElementById("form").style.display = "block";
+	  document.getElementById("form2").style.display = "none";
+  }
+<%--
+	  var form = document.createElement("form:form");
+	  form.setAttribute("action", "./bucketjournalentry?park_id=${park.getId()}");
+	  form.setAttribute("method", "post");
+
+	  var textarea = document.createElement("textarea");
+	  textarea.setAttribute("type", "text");
+	  textarea.setAttribute("path", "entry");
+	  textarea.setAttribute("name", "newEntry");
+	  textarea.setAttribute("value", "${textareaText}");
+
+	  var br = document.createElement("br");
+
+	  //var anchor = document.createElement("a");
+	  //anchor.setAttribute("class", "button1");
+
+	  var submit = document.createElement("input");
+	  submit.setAttribute("type", "submit");
+	  submit.setAttribute("value", "save");
+
+	  var container = document.getElementById("tableContainer");
+	  container.appendChild(form);
+	  form.appendChild(textarea);
+
+	  form.appendChild(br);
+	  form.appendChild(submit);
+	  //form.appendChild(anchor);
+	  //anchor.appendChild(submit);
+--%>
+	
+  
+  	function deleteJournal() {
+  	  document.getElementById("form2").style.display = "none";
+  	  document.getElementById("addBtn").style.display = "none";
+  	  document.getElementById("entry").style.display = "block";
+  	}
+
+  </script>
+
 </body>
 </html>
+
+
+

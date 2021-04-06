@@ -6,6 +6,7 @@ import com.casestudy.models.Bucket_BeenId;
 import com.casestudy.models.Journal;
 
 public class JournalDao extends DBConnection implements JournalDaoI {
+	@Override
 	public boolean addJournal(Journal journal) {
 		try {
 			this.connect();
@@ -20,6 +21,7 @@ public class JournalDao extends DBConnection implements JournalDaoI {
 		return false;
 	}
 	
+	@Override
 	public Journal getJournalById(int id) {
 		this.connect();
 		Journal journal = em.find(Journal.class, id);
@@ -27,6 +29,7 @@ public class JournalDao extends DBConnection implements JournalDaoI {
 		return journal;
 	}
 	
+	@Override
 	public Journal updateJournal(Journal journal) {
 		try {
 			this.connect();
@@ -41,5 +44,22 @@ public class JournalDao extends DBConnection implements JournalDaoI {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	@Override
+	public boolean deleteJournal(int id) {
+		try {
+			this.connect();
+			em.getTransaction().begin(); // For DDL and DML, we have to use getTransaction.
+			Journal journalFound = em.find(Journal.class, id);
+			em.remove(journalFound);
+			em.getTransaction().commit();
+			this.disconnect();
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+		
 	}
 }
