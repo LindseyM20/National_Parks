@@ -31,6 +31,9 @@
 			margin: -5px -10px 20px;
 	
 		}
+		input {
+			padding: 15px;
+		}
 		@media all and (max-width:30em){
 		  form {
 		    display: block;
@@ -72,10 +75,10 @@
 						</form:form>
 						<form:form class="beenBtn" action="./removebeen?park_id=${park.getId()}" method="post">
 							<a class="beenBtn button1 button2">
+								<i class="fas fa-minus"></i>
 								<input name="park_id"
 									type="submit"
 									value="Remove">
-								<i class="fas fa-minus"></i>
 							</a>
 						</form:form>
 					</div>

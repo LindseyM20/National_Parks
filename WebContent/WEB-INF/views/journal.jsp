@@ -23,6 +23,11 @@
 	<spring:url value="/resources/css/form.css" var="formCss" />
 	<link href="${formCss}" rel="stylesheet" />
 	<title>National Parks Journal</title>
+	<style>
+	a {
+ 	 cursor: pointer;
+	}
+	</style>
 </head>
 <body>
 

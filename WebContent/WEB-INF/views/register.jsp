@@ -5,36 +5,42 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
-<title>Registration Page</title>
+	<meta charset="ISO-8859-1">
+	<spring:url value="/resources/css/main.css" var="mainCss" />
+	<link href="${mainCss}" rel="stylesheet" />
+	<spring:url value="/resources/css/login.css" var="loginCss" />
+	<link href="${loginCss}" rel="stylesheet" />
+	<title>Registration Page</title>
 </head>
 
 <body>
-	<nav>
-		<a href="./login">Login</a>
-	</nav>
-	<h1>Register as a new user!</h1>
-	<form:form action="./register" method="post" modelAttribute="user"> <!-- the action here has to match the post mapping in the controller (not necessarily this jsp file name)-->
-		<div>
-			<label>Name</label> 
-			<form:input path="name" />
-			<form:errors path="name" /> <!-- If there's a validation error based on what we configure in the class, the app will reject the input and the error will get displayed. -->
-		</div>
-		<div>
-			<label>Email</label> 			
-			<form:input path="email" />
-			<form:errors path="email" />
-		</div>
-		<div>
-			<label>Password</label> 			
-			<form:password path="password" />
-			<form:errors path="password" />
-			<!-- <input type="password" /> figure out how to make the above line do the dots like this does --> 
-		</div>
-		<div>
-			<input type="submit" value="Register" />
-		</div>
-	</form:form> <!-- Notice the form tags are slightly different for spring -->
-
+	<div id="titleContainer">
+		<h1 class="title">National Parks</h1>
+		<h2 class="title">Bucket List | Been List</h2>
+	</div>
+	<div id="box" class="center">
+   		<!-- logo here? -->
+	    <h2 class="center">Register New User</h2>
+		<form:form action="./register" method="post" modelAttribute="user"> 
+			<div>
+				<form:input path="name" class="center input" placeholder="Name"/>
+				<form:errors path="name" />
+			</div><br/>
+			<div>
+				<form:input path="email" class="center input" placeholder="Email"/>
+				<form:errors path="email" />
+			</div><br/>
+			<div>
+				<form:password path="password"  class="center input" placeholder="Password"/>
+				<form:errors path="password" />
+			</div><br/><br/>
+			<div>
+				<input class="sub" type="submit" value="Register" />
+			</div>
+		</form:form>
+		<nav>
+			<p>Not new? <a href="./login">Login</a></p>
+		</nav>
+	</div>
 </body>
 </html>
