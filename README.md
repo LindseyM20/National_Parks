@@ -15,7 +15,7 @@ Repository: https://github.com/LindseyM20/National_Parks
   * [**Questions**](#questions)
 
 ## Description
-This is an app with which a person can view beautiful photos and descriptions of all the U.S. National Parks, save parks to their own personal bucket list, add parks to their been list, and write, edit, and delete journal entries on any park in their bucket or been list. Inspiration for this application came from my own curiosity about the National Parks and desire to keep track of bucket list parks, then check them off when visited.
+This is an app with which a person can view beautiful photos and descriptions of all the U.S. National Parks, save parks to their own personal bucket list, add parks to their been list, and write, edit, and delete journal entries on any park in their bucket or been list. Inspiration for this application came from my own curiosity about the National Parks and my desire to keep track of bucket list parks, then check them off when visited and see where I've been.
 
 ## User Stories
 * As a traveler, I want an application to view National Parks so that I can plan plan trips.
