@@ -9,6 +9,7 @@ import javax.persistence.Persistence;
 import com.casestudy.dbConnection.DBConnection;
 import com.casestudy.models.Bucket_Been;
 import com.casestudy.models.Bucket_BeenId;
+import com.casestudy.models.Journal;
 import com.casestudy.models.User;
 
 
@@ -52,6 +53,23 @@ public class Bucket_BeenDao extends DBConnection implements Bucket_BeenDaoI {
 //			bbParkFound.setVisit_again(put something here);
 //			bbParkFound.setDate_visited(put something here);
 //			bbParkFound.setJournal_id(put something here);
+			em.getTransaction().commit();
+			this.disconnect();
+			return bbParkFound;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	@Override
+	public Bucket_Been updateBBParkJournal(int park_id, int user_id, Journal journal) {
+		try {
+			this.connect();
+			em.getTransaction().begin();
+			Bucket_Been bbParkFound = em.find(Bucket_Been.class, new Bucket_BeenId(park_id, user_id));
+			bbParkFound.setJournal_id(journal);
+			System.out.println("JOURNAL ADDED/UPDATED TO PARK: " + bbParkFound);			
 			em.getTransaction().commit();
 			this.disconnect();
 			return bbParkFound;

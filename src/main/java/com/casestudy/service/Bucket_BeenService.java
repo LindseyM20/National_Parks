@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.casestudy.dao.Bucket_BeenDao;
 import com.casestudy.models.Bucket_Been;
+import com.casestudy.models.Journal;
 import com.casestudy.models.User;
 
 public class Bucket_BeenService {
@@ -19,6 +20,10 @@ public class Bucket_BeenService {
 
 	public void updateBBParkVisitedService(int park_id, int user_id) {
 		bbDao.updateBBParkVisited(park_id, user_id);
+	}
+	
+	public void updateBBParkJournalService(int park_id, int user_id, Journal journal) {
+		bbDao.updateBBParkJournal(park_id, user_id, journal);
 	}
 
 	public void deleteBBParkService(int park_id, int user_id) {

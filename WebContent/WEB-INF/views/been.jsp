@@ -62,13 +62,21 @@
 						</form:form>
 						--%>
 						
-						<form:form action="./been" method="post" modelAttribute="park">
-							<a href="./journal" class="bucketBtn button1 button2" id="${park.getId()}">
-								<i class="fas fa-plus"></i> Journal</a>
+						<form:form action="./journal?park_id=${park.getId()}" method="POST">
+							<a class="bucketBtn button1 button2">
+								<input name="park_id"
+									type="submit"
+									value="Journal"> <!-- When I change to a GET method, the controller is putting the journal value into the URL and trying to use "Journal" as the parameter for park_id. Why? -->
+								<%-- <i class="fas fa-plus"></i> --%>
+							</a>
 						</form:form>
-						<form:form class="beenBtn" action="./been" method="post" modelAttribute="park">
-							<a class="beenBtn button1 button2" id="${park.getId()}">
-								<i class="fas fa-minus"></i> Remove</a>
+						<form:form class="beenBtn" action="./removebeen?park_id=${park.getId()}" method="post">
+							<a class="beenBtn button1 button2">
+								<input name="park_id"
+									type="submit"
+									value="Remove">
+								<i class="fas fa-minus"></i>
+							</a>
 						</form:form>
 					</div>
 				</li>

@@ -54,16 +54,19 @@
 						<h2 class="parkTitle">${park.getName()}</h2>
 						<p class="parkSummary">${park.getSummary()}</p>
 						<%-- in javascript, buttons had an id for onclick functionality. How to do w/ java? --%>
-						<form:form action="./been" method="post" modelAttribute="park">
-							<a href="./journal" class="bucketBtn button1 button2" id="${park.getId()}">
-								<i class="fas fa-plus"></i> Journal</a>
+						<form:form action="./journal?park_id=${park.getId()}" method="POST">
+							<a class="bucketBtn button1 button2">
+								<input name="park_id"
+									type="submit"
+									value="Journal"> <!-- When I change to a GET method, the controller is putting the journal value into the URL and trying to use "Journal" as the parameter for park_id. Why? -->
+								<%-- <i class="fas fa-plus"></i> --%>
+							</a>
 						</form:form>
 						<form:form class="beenBtn" action="./bucket2?park_id=${park.getId()}" method="POST">
 							<a class="beenBtn button1 button2">
 								<input name="park_id"
 									type="submit"
-									value="Move to Been"
-									style="background-color: rgb(37, 39, 44, 0)">
+									value="Move to Been">
 								 <%-- <i class="fas fa-check"></i> --%>	 
 							</a>
 						</form:form>

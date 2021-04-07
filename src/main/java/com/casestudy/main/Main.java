@@ -8,6 +8,7 @@ import com.casestudy.models.Journal;
 import com.casestudy.models.Park;
 import com.casestudy.models.User;
 import com.casestudy.service.Bucket_BeenService;
+import com.casestudy.service.JournalService;
 import com.casestudy.service.ParkService;
 import com.casestudy.service.UserService;
 
@@ -15,8 +16,10 @@ public class Main {
 
 	public static void main(String[] args) {
 		UserService USer = new UserService();
-		Bucket_BeenService BBSer = new Bucket_BeenService();
 		ParkService parkSer = new ParkService();
+		Bucket_BeenService BBSer = new Bucket_BeenService();
+		JournalService jSer = new JournalService();
+		
 		
 		// seeding the User table
 		User u1 = new User("Lindsey", "hello@world.com", "asdf");
@@ -59,6 +62,13 @@ public class Main {
 		BBSer.addBBParkService(bucket1);
 		BBSer.addBBParkService(bucket2);
 
+		
+		
+//		System.out.println(jSer.getJournalByIdService(2));
+//		Journal journalUpdate = new Journal(2, "this is the updated journal entry.");
+//		jSer.updateJournalService(journalUpdate);
+//		System.out.println(jSer.getJournalByIdService(2));
+		
 //		BBSer.getUserBucketService(1);
 //		BBSer.getUserBeenService(u1.getId());
 		
