@@ -40,7 +40,7 @@ Fork this project from the repository into Eclipse or your Java editor. Then, fi
 ## Tests
 JUnit tests were made and performed, and all unit tests pass. Find them in the tests package.
 
-![App in browser](./public/screenshot.png)
+![App in browser](./WebContent/resources/images/0screenshot2.png)
 
 ## License
 The contents of this repository are protected under the MIT License
