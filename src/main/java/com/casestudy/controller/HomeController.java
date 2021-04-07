@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.casestudy.dao.UserDao;
+import com.casestudy.exceptions.CustomException;
+import com.casestudy.exceptions.DuplicateBBException;
 import com.casestudy.models.Bucket_Been;
 import com.casestudy.models.Journal;
 import com.casestudy.models.Park;
@@ -48,19 +50,26 @@ public class HomeController {
 		Park park = parkService.getParkByIdService(park_id);
 		Bucket_Been parkToAdd = new Bucket_Been(park, user, false, null);
 		bbService.addBBParkService(parkToAdd);
-		// Todo: if park is already in bucketlist, alert user somehow
+		// Todo: if park is already in bucket list, alert user somehow
+		// Todo: if park is in been list, alert user it cannot be in both.
 		// Todo: make it so page doesn't reload
 		return "redirect:/home";
 	}
 	
 	// Add a park to user's been list
 	@PostMapping("/home2")
-	public String processAddBeen(@RequestParam("park_id") int park_id, HttpSession session) {
+	public String processAddBeen(@RequestParam("park_id") int park_id, HttpSession session) throws DuplicateBBException {
 		User user = (User) session.getAttribute("currentUser");
 		Park park = parkService.getParkByIdService(park_id);
 		Bucket_Been parkToAdd = new Bucket_Been(park, user, true, null);
-		bbService.addBBParkService(parkToAdd);
+		if (bbService.getBBParkService(park_id, user.getId()) == null) {
+			bbService.addBBParkService(parkToAdd);
+		} else {
+			// If park is in bucket list, alert user it cannot be in both.
+			throw new DuplicateBBException();
+		}
 		// Todo: if park is already in been list, alert user somehow
+		
 		// Todo: make it so page doesn't reload
 		return "redirect:/home";
 	}
