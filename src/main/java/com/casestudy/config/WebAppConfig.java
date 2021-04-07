@@ -26,6 +26,8 @@ public class WebAppConfig implements WebMvcConfigurer {
 		registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
 	}
 	
+	// This maps exceptions to their corresponding views. 
+	// With this, the user won't get ugly exception/stack trace pages on their browser.
 	@Bean(name="simpleMappingExceptionResolver")
 	public SimpleMappingExceptionResolver
 	                createSimpleMappingExceptionResolver() {
