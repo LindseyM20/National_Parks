@@ -10,7 +10,7 @@
 	<link href="${mainCss}" rel="stylesheet" />
 	<spring:url value="/resources/css/login.css" var="loginCss" />
 	<link href="${loginCss}" rel="stylesheet" />
-	<title>Registration Page</title>
+	<title>National Parks Register</title>
 </head>
 
 <body>

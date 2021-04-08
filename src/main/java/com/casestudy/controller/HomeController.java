@@ -58,7 +58,8 @@ public class HomeController {
 	
 	// Add a park to user's been list
 	@PostMapping("/home2")
-	public String processAddBeen(@RequestParam("park_id") int park_id, HttpSession session) throws DuplicateBBException {
+	public String processAddBeen(@RequestParam("park_id") int park_id, HttpSession session) 
+								throws DuplicateBBException {
 		User user = (User) session.getAttribute("currentUser");
 		Park park = parkService.getParkByIdService(park_id);
 		Bucket_Been parkToAdd = new Bucket_Been(park, user, true, null);

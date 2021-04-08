@@ -27,54 +27,38 @@
 	<spring:url value="/resources/css/main.css" var="mainCss" />
 	<link href="${mainCss}" rel="stylesheet" />
 	<title>National Parks Bucket/Been List</title>
+	<style>
+		* {
+			font-family: 'Kufam', cursive;
+		}
+	</style>
 </head>
 <body>
-	<%-- <%@ include file="nav_bar1.html"%> --%>
-	<div id="hero">
-		<nav>
-			<a href="./login" id="loginBtn" class="button1"> Log In </a>
-		</nav>
-		<h1 id="mainTitle">National Parks</h1>
+	<div id="page-container">
+		<div id="content-wrap">
+			<div id="hero">
+				<nav>
+					<a href="./login" id="loginBtn" class="button1"> Log In </a>
+				</nav>
+				<h1 id="mainTitle">National Parks</h1>
+			</div>
+
+			<div id="container">
+				<ul id="parkList" class="thumbnails">
+					<c:forEach items="${parks}" var="park">
+						<spring:url value="/resources${park.getPhotoLocal()}" var="photoLocal" />
+						<li class="parkLi" style="margin:30px">
+							<div class="thumbnail">
+								<img src="${photoLocal}" alt="${park.getName()}">
+								<h2 class="parkTitle">${park.getName()}</h2>
+								<p class="parkSummary">${park.getSummary()}</p>
+							</div>
+						</li>
+					</c:forEach>
+				</ul>
+			</div>
+		</div>
+		<%@ include file="footer.html" %>
 	</div>
-	<%--<% List parks =  --%>
-
-	<!-- 
-	<c:forEach items="${parks}" var="park">
-	    <p><c:out value="${park}"/></p>
-	</c:forEach>
-	
-	  <c:forEach var = "i" begin = "1" end = "5">
-         Item <c:out value = "${i}"/><p>
-      </c:forEach>
-
-	<%-- A for loop, putting the data in a table --%>
-	<table>
-		<tr>
-			<td>Parks</td>
-		</tr>
-		<c:forEach items="${parks}" var="park">
-			<tr>
-				<td>${park.getName()}</td>
-			</tr>
-		</c:forEach>
-	</table>
--->
-	<div id="container">
-		<ul id="parkList" class="thumbnails">
-			<c:forEach items="${parks}" var="park">
-				<spring:url value="/resources${park.getPhotoLocal()}" var="photoLocal" />
-				<li class="parkLi" style="margin:30px">
-					<div class="thumbnail">
-						<img src="${photoLocal}" alt="${park.getName()}">
-						<h2 class="parkTitle">${park.getName()}</h2>
-						<p class="parkSummary">${park.getSummary()}</p>
-					</div>
-				</li>
-			</c:forEach>
-		</ul>
-	</div>
-	<%@ include file="footer.html" %>
-
-
 </body>
 </html>

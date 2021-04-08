@@ -51,7 +51,19 @@ public class Park {
 		this.summary = summary;
 	}
 	
-	
+	public Park(int id, String name, String state, int year_founded, String photoLocal, String photoURL,
+			String photo_cred, String summary) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.state = state;
+		this.year_founded = year_founded;
+		this.photoLocal = photoLocal;
+		this.photoURL = photoURL;
+		this.photo_cred = photo_cred;
+		this.summary = summary;
+	}
+
 	public int getId() {
 		return id;
 	}

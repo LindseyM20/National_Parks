@@ -38,24 +38,4 @@ public class UserDao extends DBConnection implements UserDaoI {
 		return null;
 	}
 
-	
-//	@Override
-//	public boolean deleteUser(String email) {
-//		try {
-//			this.connect();
-//			em.getTransaction().begin(); // For DDL and DML, we have to use getTransaction.
-//			User userFound = this.findUserByEmail(email);
-//			System.out.println("line 48 " + userFound);
-////			User userFound = em.find(User.class, email);
-//			em.remove(userFound);
-//			em.getTransaction().commit();
-//			this.disconnect();
-//			return true;
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		return false;
-//	}
-	
-	// validateUser method is in the service
 }

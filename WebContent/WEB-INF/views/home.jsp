@@ -19,10 +19,15 @@
 		href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
 		integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
 		crossorigin="anonymous">
+	<spring:url value="/resources/css/navbar.css" var="navbarCss" />
+	<link href="${navbarCss}" rel="stylesheet" />
 	<spring:url value="/resources/css/main.css" var="mainCss" />
 	<link href="${mainCss}" rel="stylesheet" />
 	<title>National Parks Bucket/Been List | Home</title>
 	<style>
+		* {
+			font-family: 'Kufam', cursive;
+		}
 		form {
 			display: inline-block;
 		}
@@ -40,53 +45,56 @@
 	</style>
 </head>
 <body>
-	<%-- <%@ include file="nav_bar2.html" %>
-	<h1>Welcome, ${currentUser.getName()}!!</h1>
-	<%= new java.util.Date() %> --%>
-	<div id="hero">
-		<h1 id="mainTitle">National Parks</h1>
-		<nav>
-			<a href="./bucket" class="button1"> Bucket List </a> 
-			<a href="./been" class="button1" id="beenListBtn"> Been List </a>
-		</nav>
+	<div id="page-container">
+		<div id="content-wrap">
+			<%@ include file="nav_bar1.html" %>
+			<%-- <h1>Welcome, ${currentUser.getName()}!!</h1>
+			<%= new java.util.Date() %> --%>
+			<div id="hero">
+				<h1 id="mainTitle">National Parks</h1>
+				<nav>
+					<a href="./bucket" class="button1"> Bucket List </a> 
+					<a href="./been" class="button1" id="beenListBtn"> Been List </a>
+				</nav>
+			</div>
+			
+			<!-- take this back out later - just a test
+			<a href="./login" id="loginBtn" class="button1"> Log In </a>
+		  -->
+		
+			<div id="container">
+				<ul id="parkList" class="thumbnails">
+					<c:forEach items="${parks}" var="park">
+						<spring:url value="/resources${park.getPhotoLocal()}" var="photoLocal" />
+						<li class="parkLi" style="margin: 30px">
+							<div class="thumbnail">
+								<img src="${photoLocal}" alt="${park.getName()}">
+								<h2 class="parkTitle">${park.getName()}</h2>
+								<p class="parkSummary">${park.getSummary()}</p>
+		
+								<form:form action="./home1?park_id=${park.getId()}" method="POST">
+									<a class="button1 button2"> 
+										<i class="fas fa-plus"></i>
+										<input name="park_id"
+											type="submit" 
+											value=" Bucket List" />
+									</a>
+								</form:form>
+								<form:form class="beenBtn" action="./home2?park_id=${park.getId()}" method="POST">
+									<a class="button1 button2 beenBtn"> 
+										<i class="fas fa-plus"></i>
+										<input name="park_id"
+											type="submit" 
+											value=" Been List" />
+									</a>
+								</form:form>
+							</div>
+						</li>
+					</c:forEach>
+				</ul>
+			</div>
+		</div>
+		<%@ include file="footer.html"%>
 	</div>
-	
-	<!-- take this back out later - just a test
-	<a href="./login" id="loginBtn" class="button1"> Log In </a>
-  -->
-
-	<div id="container">
-		<ul id="parkList" class="thumbnails">
-			<c:forEach items="${parks}" var="park">
-				<spring:url value="/resources${park.getPhotoLocal()}" var="photoLocal" />
-				<li class="parkLi" style="margin: 30px">
-					<div class="thumbnail">
-						<img src="${photoLocal}" alt="${park.getName()}">
-						<h2 class="parkTitle">${park.getName()}</h2>
-						<p class="parkSummary">${park.getSummary()}</p>
-
-						<form:form action="./home1?park_id=${park.getId()}" method="POST">
-							<a class="button1 button2"> 
-								<input name="park_id"
-									type="submit" 
-									value="+ Bucket List"
-								/>
-							</a>
-						</form:form>
-						<form:form class="beenBtn" action="./home2?park_id=${park.getId()}" method="POST">
-							<a class="button1 button2 beenBtn"> 
-								<input name="park_id"
-									type="submit" 
-									value="+ Been List"
-								/>
-								<%-- <i class="fas fa-plus"></i> --%>
-							</a>
-						</form:form>
-					</div>
-				</li>
-			</c:forEach>
-		</ul>
-	</div>
-	<%@ include file="footer.html"%>
 </body>
 </html>
