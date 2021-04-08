@@ -4,21 +4,10 @@ import java.util.List;
 
 import com.casestudy.dbConnection.DBConnection;
 import com.casestudy.models.Park;
+import com.casestudy.utilizes.Constants;
 
 public class ParkDao extends DBConnection implements ParkDaoI {
-	
-	@Override
-	public List<Park> getAllParks() {
-		try {
-			this.connect();
-			List<Park> parks = em.createQuery("select p from Park p").getResultList();
-			this.disconnect();
-			return parks;
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
+	Constants constants = new Constants();
 	
 	@Override
 	public Park getParkById(int id) {
@@ -32,4 +21,18 @@ public class ParkDao extends DBConnection implements ParkDaoI {
 		}
 		return null;
 	}
+	
+	@Override
+	public List<Park> getAllParks() {
+		try {
+			this.connect();
+			List<Park> parks = em.createQuery(constants.PARKS_QUERY).getResultList();
+			this.disconnect();
+			return parks;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 }

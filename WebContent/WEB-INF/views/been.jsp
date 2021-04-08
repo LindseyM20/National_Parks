@@ -16,9 +16,15 @@
 		href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
 		integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
 		crossorigin="anonymous">
+	<spring:url value="/resources/css/navbar.css" var="navbarCss" />
+	<link href="${navbarCss}" rel="stylesheet" />
   	<spring:url value="/resources/css/main.css" var="mainCss" />
 	<link href="${mainCss}" rel="stylesheet" />
+
 	<style>
+		* {
+			font-family: 'Kufam', cursive;
+		}
 		h1, h4 {
 			text-align: center;
 			color: white;
@@ -31,6 +37,9 @@
 			margin: -5px -10px 20px;
 	
 		}
+		input {
+			padding: 15px;
+		}
 		@media all and (max-width:30em){
 		  form {
 		    display: block;
@@ -38,51 +47,48 @@
 		  }
 		}
 	</style>
+	
 	<title>National Parks Been List</title>
 </head>
 <body>
-	<%@ include file="nav_bar2.html" %>
-	<h1>Welcome to your Been List, ${user.getName()}!</h1>
-	<h4>Here, you can view the parks you've visited, journal about your experiences, and reminisce!</h4>
-	<div id="container">
-		<ul id="parkList" class="thumbnails">
-			<c:forEach items="${beenParks}" var="park">
-				<spring:url value="/resources${park.getPhotoLocal()}" var="photoLocal" />
-				<li class="parkLi" style="margin:30px">
-					<div class="thumbnail">
-						<img src="${photoLocal}" alt="${park.getName()}">
-						<h2 class="parkTitle">${park.getName()}</h2>
-						<p class="parkSummary">${park.getSummary()}</p>
-						<%-- To go back to this, get rid of style in head. 
-						<form:form action="./been" method="post" modelAttribute="park">
-							<a href="./journal" class="bucketBtn button1 button2" id="${park.getId()}">
-								<i class="fas fa-plus"></i> Journal</a>
-							<a class="beenBtn button1 button2" id="${park.getId()}">
-								<i class="fas fa-minus"></i> Remove</a>
-						</form:form>
-						--%>
-						
-						<form:form action="./journal?park_id=${park.getId()}" method="POST">
-							<a class="bucketBtn button1 button2">
-								<input name="park_id"
-									type="submit"
-									value="Journal"> <!-- When I change to a GET method, the controller is putting the journal value into the URL and trying to use "Journal" as the parameter for park_id. Why? -->
-								<%-- <i class="fas fa-plus"></i> --%>
-							</a>
-						</form:form>
-						<form:form class="beenBtn" action="./removebeen?park_id=${park.getId()}" method="post">
-							<a class="beenBtn button1 button2">
-								<input name="park_id"
-									type="submit"
-									value="Remove">
-								<i class="fas fa-minus"></i>
-							</a>
-						</form:form>
-					</div>
-				</li>
-			</c:forEach>
-		</ul>
+    <div id="page-container">
+	  	<div id="content-wrap">
+			<%@ include file="nav_bar2.html" %>
+			<h1>Welcome to your Been List, ${user.getName()}!</h1>
+			<h4>Here, you can view the parks you've visited, journal about your experiences, and reminisce!</h4>
+			<div id="container">
+				<ul id="parkList" class="thumbnails">
+					<c:forEach items="${beenParks}" var="park">
+						<spring:url value="/resources${park.getPhotoLocal()}" var="photoLocal" />
+						<li class="parkLi" style="margin:30px">
+							<div class="thumbnail">
+								<img src="${photoLocal}" alt="${park.getName()}">
+								<h2 class="parkTitle">${park.getName()}</h2>
+								<p class="parkSummary">${park.getSummary()}</p>
+							
+								<form:form action="./journal?park_id=${park.getId()}" method="POST">
+									<a class="bucketBtn button1 button2">
+										<i class="fas fa-pencil-alt"></i>
+										<input name="park_id"
+											type="submit"
+											value=" Journal"> <!-- When I change to a GET method, the controller is putting the journal value into the URL and trying to use "Journal" as the parameter for park_id. Why? -->
+									</a>
+								</form:form>
+								<form:form class="beenBtn" action="./removebeen?park_id=${park.getId()}" method="post">
+									<a class="beenBtn button1 button2">
+										<i class="fas fa-times"></i>
+										<input name="park_id"
+											type="submit"
+											value=" Remove">
+									</a>
+								</form:form>
+							</div>
+						</li>
+					</c:forEach>
+				</ul>
+			</div>
+		</div>
+		<%@ include file="footer.html" %>
 	</div>
-	<%@ include file="footer.html" %>
 </body>
 </html>

@@ -18,11 +18,27 @@
 		href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
 		integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
 		crossorigin="anonymous">
+		<spring:url value="/resources/css/navbar.css" var="navbarCss" />
+	<link href="${navbarCss}" rel="stylesheet" />
 	<spring:url value="/resources/css/main.css" var="mainCss" />
 	<link href="${mainCss}" rel="stylesheet" />
 	<spring:url value="/resources/css/form.css" var="formCss" />
 	<link href="${formCss}" rel="stylesheet" />
 	<title>National Parks Journal</title>
+	<style>
+		* {
+			font-family: 'Kufam', cursive;
+			box-sizing: border-box;
+		}
+		/*
+		a {
+	 		cursor: pointer;
+		}
+		*/
+		.journalBtn {
+			display: inline-block;
+		}
+	</style>
 </head>
 <body>
 
@@ -36,27 +52,25 @@
 	<br /><br />
     
     <%-- This is a button to write/edit --%>
-	<a class="button1" id="addBtn" onclick="add();"> ${bbPark.getJournal_id()==null ? "Write" : "Edit"}</a>
+	<a class="button1 journalBtn" id="addBtn" onclick="add();"> ${bbPark.getJournal_id()==null ? "Write" : "Edit"}</a>
 	 
-	 
-
 	 
 	<c:if test="${bbPark.getJournal_id()!=null}">
 		<form:form id="form2" action="./deletejournal?park_id=${park.getId()}" method="post">
 			<!-- <textarea type="text" path="entry" name="newEntry" value="${journal.getEntry()!=null ? '' : journalEntry}"></textarea> -->
-			<a class="button1" id="deleteBtn" onclick="deleteJournal();"><input type="submit" value="Delete" /></a>
+			<a class="button1 journalBtn" id="deleteBtn" style="margin-bottom: 20px" onclick="deleteJournal();"><input style="margin: 0" type="submit" value="Delete" /></a>
 		</form:form>
 	</c:if> 
 	
 
-	
-	
-	<form:form id="form" style="display: none" action="./journalentry?park_id=${park.getId()}" method="post">
+	<form:form id="form" style="display: none; margin: 0 auto" action="./journalentry?park_id=${park.getId()}" method="post">
 	<%-- futile attempts to get the existing journal entry to show up in the textarea --%>
-		<textarea <%--type="text" path="entry"--%> name="newEntry" value="${textareaText}"></textarea>
+		<textarea <%--type="text"--%> path="entry" name="newEntry" value="${textareaText}"></textarea>
 		<!-- <textarea type="text" path="entry" name="newEntry" value="${journal.getEntry()!=null ? '' : journalEntry}"></textarea> -->
 		<br />
-		<a class="button1"><input type="submit" value="Save" /></a>
+		<div style="text-align: center">
+			<a class="button1" style="margin-bottom: 20px"><input style="margin: 0" type="submit" value="Save" /></a>
+		</div>
 	</form:form>
 	
   </div>

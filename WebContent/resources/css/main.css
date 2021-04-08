@@ -1,9 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Kufam&display=swap');
 html, body {
   margin: 0;
   padding: 0;
   scroll-behavior: smooth;
   overflow-x: hidden;
   background-color: rgb(37, 39, 44);
+}
+
+a {
+  cursor: pointer;
 }
 
 ul {
@@ -24,6 +29,7 @@ ul {
   padding: 0;
   padding-top: 56.64%;
   align-items: center;
+  font-family: 'Kufam', cursive;
 }
 
 #mainTitle {
@@ -102,17 +108,36 @@ a.button2:visited {
   border: 1px solid white;
   border-radius: 0;
   background-color: rgb(37, 39, 44);
+  margin: 0 auto !important;
+  padding: 0 auto !important; 
 }
 
 .thumbnails {
-  margin: 0;
-  padding: 0;
+  margin: 0 auto !important;
+  padding: 0 auto !important; 
 }
 
 .thumbnail h2, .thumbnail p {
   color: white;
   text-align: center;
   /* max-width: 875px; */
+}
+
+#page-container {
+	position: relative;
+	min-height: 100vh;
+}
+
+
+footer {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	margin-top: 30px;
+}
+
+#content-wrap {
+  padding-bottom: 3.5rem; 
 }
 
 @media screen and (min-width: 480px) {

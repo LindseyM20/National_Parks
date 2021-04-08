@@ -54,6 +54,7 @@ public class UserTest {
 		System.out.println("BeforeTest");
 	}
 	
+	// Test for addUser method: passes
 	@Test
 	public void test1AddUser() {
 		System.out.println("Testing addUser method");
@@ -61,6 +62,7 @@ public class UserTest {
 		assertTrue(success);
 	}
 	
+	// Test for findUserByEmail method: passes
 	@Test
 	public void test2FindUserByEmail() {
 		System.out.println("Testing finding " + this.userExpected.getName());
@@ -76,121 +78,5 @@ public class UserTest {
 //		assertTrue(success);
 //	}
 
-	// Everything after here is auto-generated
-	
-//	@Test
-//	public void testUser() {
-//		fail("Not yet implemented");
-//	}
-//
-//	@Test
-//	public void testUserIntStringStringString() {
-//		fail("Not yet implemented");
-//	}
-//
-//	@Test
-//	public void testUserStringStringString() {
-//		fail("Not yet implemented");
-//	}
-//
-//	@Test
-//	public void testGetId() {
-//		fail("Not yet implemented");
-//	}
-//
-//	@Test
-//	public void testSetId() {
-//		fail("Not yet implemented");
-//	}
-//
-//	@Test
-//	public void testGetName() {
-//		fail("Not yet implemented");
-//	}
-//
-//	@Test
-//	public void testSetName() {
-//		fail("Not yet implemented");
-//	}
-//
-//	@Test
-//	public void testGetEmail() {
-//		fail("Not yet implemented");
-//	}
-//
-//	@Test
-//	public void testSetEmail() {
-//		fail("Not yet implemented");
-//	}
-//
-//	@Test
-//	public void testGetPassword() {
-//		fail("Not yet implemented");
-//	}
-//
-//	@Test
-//	public void testSetPassword() {
-//		fail("Not yet implemented");
-//	}
-//
-//	@Test
-//	public void testObject() {
-//		fail("Not yet implemented");
-//	}
-//
-//	@Test
-//	public void testGetClass() {
-//		fail("Not yet implemented");
-//	}
-//
-//	@Test
-//	public void testHashCode() {
-//		fail("Not yet implemented");
-//	}
-//
-//	@Test
-//	public void testEquals() {
-//		fail("Not yet implemented");
-//	}
-//
-//	@Test
-//	public void testClone() {
-//		fail("Not yet implemented");
-//	}
-//
-//	@Test
-//	public void testToString() {
-//		fail("Not yet implemented");
-//	}
-//
-//	@Test
-//	public void testNotify() {
-//		fail("Not yet implemented");
-//	}
-//
-//	@Test
-//	public void testNotifyAll() {
-//		fail("Not yet implemented");
-//	}
-//
-//	@Test
-//	public void testWait() {
-//		fail("Not yet implemented");
-//	}
-//
-//	@Test
-//	public void testWaitLong() {
-//		fail("Not yet implemented");
-//	}
-//
-//	@Test
-//	public void testWaitLongInt() {
-//		fail("Not yet implemented");
-//	}
-//
-//	@Test
-//	public void testFinalize() {
-//		fail("Not yet implemented");
-//	}
 
 }
