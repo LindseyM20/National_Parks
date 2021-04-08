@@ -12,7 +12,6 @@ import com.casestudy.models.Park;
 public class ParkTest {
 
 	static ParkDao pDao;
-	int parkId;
 	String parkSummary = "Not just a great valley, but a shrine to human foresight, the strength of granite, the power of glaciers, the persistence of life, and the tranquility of the High Sierra. First protected in 1864, Yosemite National Park is best known for its waterfalls, but within its nearly 1,200 square miles, you can find deep valleys, grand meadows, ancient giant sequoias, a vast wilderness area, and much more.";
 	Park parkExpected = new Park(61, "Yosemite National Park", "California", 1890, "/images/yosemite.jpg", 
 			"https://blog.assets.thediscoverer.com/2019/03/Yosemite-National-Park-Valley.jpg", 

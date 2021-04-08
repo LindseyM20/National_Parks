@@ -15,6 +15,8 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @EnableWebMvc
 @ComponentScan("com.casestudy")
 public class WebAppConfig implements WebMvcConfigurer {
+	// This takes the controller's return string and inserts it between these strings, 
+	// to create a full relative path to the view (jsp) we want to display.
 	@Bean
 	InternalResourceViewResolver viewResolver() {
 		return new InternalResourceViewResolver("/WEB-INF/views/", ".jsp");
@@ -27,7 +29,7 @@ public class WebAppConfig implements WebMvcConfigurer {
 	}
 	
 	// This maps exceptions to their corresponding views. 
-	// With this, the user won't get ugly exception/stack trace pages on their browser.
+	// With this, the user won't get exception/stack trace pages on their browser.
 	@Bean(name="simpleMappingExceptionResolver")
 	public SimpleMappingExceptionResolver
 	                createSimpleMappingExceptionResolver() {
