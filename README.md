@@ -11,6 +11,7 @@ Repository: https://github.com/LindseyM20/National_Parks
   * [**Installation and Usage**](#installation-and-usage)
   * [**Obstacles and Solutions**](#obstacles-and-solutions)
   * [**Tests**](#tests)
+  * [**Sources**](#sources)
   * [**License**](#license)
   * [**Questions**](#questions)
 
@@ -43,6 +44,9 @@ Fork this project from the repository into Eclipse or your Java editor. Then, fi
 JUnit tests were made and performed, and all unit tests pass. Find them in the tests package.
 
 ![App in browser](./WebContent/resources/images/0screenshot2.png)
+
+## Sources
+The National Park photographs used in this project are from https://www.thediscoverer.com/blog/every-us-national-park-ranked - with the exception of a couple which are from nps.gov. The description of each park is also from the nps.gov website.
 
 ## License
 The contents of this repository are protected under the MIT License
