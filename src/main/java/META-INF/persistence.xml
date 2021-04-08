@@ -11,12 +11,26 @@
 		
 		
 	
-		<!-- Properties -->
+		<!-- 
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
-			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/National_Parks"/> <!-- Can add ?serverTimezone=UTC onto the end of the string if problems. -->
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/National_Parks"/>
 			<property name="javax.persistence.jdbc.user" value="root"/>
 			<property name="javax.persistence.jdbc.password" value="rootroot"/>
+			
+			EclipseLink configuration
+			<property name="eclipselink.logging.level" value="INFO"/>
+			<property name="eclipselink.ddl-generation" value="create-or-extend-tables" />
+			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
+		</properties>
+		
+		-->
+		 
+		<properties>
+			<property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://g84t6zfpijzwx08q.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/e9q5malputqhhnyq"/> <!-- Can add ?serverTimezone=UTC onto the end of the string if problems. -->
+			<property name="javax.persistence.jdbc.user" value="ehm2jqb9vydvh5k4"/>
+			<property name="javax.persistence.jdbc.password" value="kl3jzrf7ovfouqny"/>
 			
 			<!-- EclipseLink configuration -->
 			<property name="eclipselink.logging.level" value="INFO"/>
