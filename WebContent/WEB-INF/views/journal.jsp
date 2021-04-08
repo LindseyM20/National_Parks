@@ -83,37 +83,7 @@
 	  document.getElementById("form").style.display = "block";
 	  document.getElementById("form2").style.display = "none";
   }
-<%--
-	  var form = document.createElement("form:form");
-	  form.setAttribute("action", "./bucketjournalentry?park_id=${park.getId()}");
-	  form.setAttribute("method", "post");
 
-	  var textarea = document.createElement("textarea");
-	  textarea.setAttribute("type", "text");
-	  textarea.setAttribute("path", "entry");
-	  textarea.setAttribute("name", "newEntry");
-	  textarea.setAttribute("value", "${textareaText}");
-
-	  var br = document.createElement("br");
-
-	  //var anchor = document.createElement("a");
-	  //anchor.setAttribute("class", "button1");
-
-	  var submit = document.createElement("input");
-	  submit.setAttribute("type", "submit");
-	  submit.setAttribute("value", "save");
-
-	  var container = document.getElementById("tableContainer");
-	  container.appendChild(form);
-	  form.appendChild(textarea);
-
-	  form.appendChild(br);
-	  form.appendChild(submit);
-	  //form.appendChild(anchor);
-	  //anchor.appendChild(submit);
---%>
-	
-  
   	function deleteJournal() {
   	  document.getElementById("form2").style.display = "none";
   	  document.getElementById("addBtn").style.display = "none";

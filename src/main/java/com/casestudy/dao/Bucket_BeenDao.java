@@ -11,10 +11,11 @@ import com.casestudy.models.Bucket_Been;
 import com.casestudy.models.Bucket_BeenId;
 import com.casestudy.models.Journal;
 import com.casestudy.models.User;
+import com.casestudy.utilizes.Constants;
 
 
 public class Bucket_BeenDao extends DBConnection implements Bucket_BeenDaoI {
-
+	
 	@Override
 	public boolean addBBPark(Bucket_Been bbPark) {
 		try {
@@ -94,32 +95,5 @@ public class Bucket_BeenDao extends DBConnection implements Bucket_BeenDaoI {
 		}
 		return false;
 	}
-	
-	
-	
-	
-	@Override
-	public List<Bucket_Been> getUserBeen(int user_id) {
-		this.connect();
-		String query = "select bb from Bucket_Been bb where bb.primaryKey.user_id = " + user_id + " and bb.visited = 1";
-		List<Bucket_Been> beenParks = em.createQuery(query).getResultList();
-		this.disconnect();
-		for (Bucket_Been park: beenParks) {
-			System.out.println(park);
-		}
-		return beenParks;
-	};
-	
-	@Override
-	public List<Bucket_Been> getUserBucket(int user_id) {
-		this.connect();
-		String query = "select bb from Bucket_Been bb where bb.primaryKey.user_id = " + user_id + " and bb.visited = 0";
-		List<Bucket_Been> bucketParks = em.createQuery(query).getResultList();
-		this.disconnect();
-		for (Bucket_Been park: bucketParks) {
-			System.out.println(park);
-		}
-		return bucketParks;
-	};
 
 }

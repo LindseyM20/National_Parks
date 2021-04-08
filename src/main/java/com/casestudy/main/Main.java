@@ -52,8 +52,8 @@ public class Main {
 		BBSer.addBBParkService(been1);
 		BBSer.addBBParkService(been2);
 		
-		BBSer.getUserBeenService(1);
-		BBSer.getUserBeenService(2);
+		BBSer.getUserBeen(1);
+		BBSer.getUserBeen(2);
 		
 		Journal journal3 = new Journal("this is my third journal");
 		Journal journal4 = new Journal("this is my fourth journal");

@@ -36,8 +36,8 @@ public class HomeController {
 	// Display the home page
 	@GetMapping("/home")
 	public String showHomePage(Model model, HttpSession session) {
-		User user = (User) session.getAttribute("currentUser"); //use this to display user's name
-		List<Park> parks = parkService.getAllParksService();	// change this later so park isn't hardcoded.
+		User user = (User) session.getAttribute("currentUser");
+		List<Park> parks = parkService.getAllParksService();
 		model.addAttribute("user", user);
 		model.addAttribute("parks", parks);
 		return "home";
@@ -70,33 +70,15 @@ public class HomeController {
 			throw new DuplicateBBException();
 		}
 		// Todo: if park is already in been list, alert user somehow
-		
 		// Todo: make it so page doesn't reload
 		return "redirect:/home";
-	}
-	
-	// Display the been list
-	@GetMapping("/been")
-	public String showBeenPage(HttpSession session, Model model) {
-		User user = (User) session.getAttribute("currentUser");
-		List<Bucket_Been> beenList = bbService.getUserBeenService(user.getId());
-		// map beenList to a list of Park type
-		List<Park> beenParks = new ArrayList<Park>();
-		for (Bucket_Been bb : beenList) {
-			int park_id = bb.getPrimaryKey().getPark_id();
-			beenParks.add(parkService.getParkByIdService(park_id));
-		}
-		model.addAttribute("user", user);
-		model.addAttribute("beenParks", beenParks);
-		
-		return "been";
 	}
 	
 	// Display the bucket list
 	@GetMapping("/bucket")
 	public String showBucketPage(HttpSession session, Model model) {
 		User user = (User) session.getAttribute("currentUser");
-		List<Bucket_Been> bucketList = bbService.getUserBucketService(user.getId());
+		List<Bucket_Been> bucketList = bbService.getUserBucket(user.getId());
 		// map bucketList to a list of Park type
 		List<Park> bucketParks = new ArrayList<Park>();
 		for (Bucket_Been bb : bucketList) {
@@ -109,6 +91,24 @@ public class HomeController {
 		return "bucket";
 	}
 	
+	// Display the been list
+	@GetMapping("/been")
+	public String showBeenPage(HttpSession session, Model model) {
+		User user = (User) session.getAttribute("currentUser");
+		List<Bucket_Been> beenList = bbService.getUserBeen(user.getId());
+		// map beenList to a list of Park type
+		List<Park> beenParks = new ArrayList<Park>();
+		for (Bucket_Been bb : beenList) {
+			int park_id = bb.getPrimaryKey().getPark_id();
+			beenParks.add(parkService.getParkByIdService(park_id));
+		}
+		model.addAttribute("user", user);
+		model.addAttribute("beenParks", beenParks);
+		
+		return "been";
+	}
+	
+	// Move a park from bucket list to been list
 	@PostMapping("/bucket2")
 	public String processMoveToBeen(@RequestParam("park_id") int park_id, HttpSession session) {
 		User user = (User) session.getAttribute("currentUser");
@@ -117,40 +117,7 @@ public class HomeController {
 		return "redirect:/bucket";
 	}
 	
-	
-//	//Next 2 methods are experimental
-//	// Trying to grab the park id in a separate postMapping, then use a getMapping to display the journal page. Hoping this can make the buttons and textarea have correct text.
-//	@PostMapping("/bucket1") // change this in bucket too (was /journal)
-//	public int getParkId(@RequestParam("park_id") int park_id) {
-//		return park_id;
-//	}
-//	
-//	@GetMapping("/journal")
-//	public String showJournalPage(HttpSession session, Model model) {
-//		int park_id = request.getParameter("park_id");
-//		User user = (User) session.getAttribute("currentUser"); //use this to display user's name
-//		Park park = parkService.getParkByIdService(park_id);
-//		Bucket_Been bbPark = bbService.getBBParkService(park_id, user.getId());
-//		String textareaText;
-//		if (bbPark.getJournal_id() != null) {
-//			String journalEntry = bbPark.getJournal_id().getEntry();
-//			model.addAttribute("journalEntry", journalEntry);
-////			model.addAttribute("buttonText", "Edit");
-//			textareaText = journalEntry;
-//		} else {
-//			model.addAttribute("journalEntry", "No journal entry yet... Write one?");
-////			model.addAttribute("buttonText", "Write");
-//			textareaText = null;
-//			model.addAttribute("journal", new Journal());
-//		}
-//		model.addAttribute("park", park); // use this to display the park's name
-//		model.addAttribute("bbPark", bbPark);
-//		model.addAttribute("user", user);
-//		model.addAttribute("journal", bbPark.getJournal_id());
-//		model.addAttribute("textareaText", textareaText);
-//		return "journal";
-//	}
-	
+	// Display a park's Journal page
 	@PostMapping("/journal")
 	public String showJournalPage(@RequestParam("park_id") int park_id, HttpSession session, Model model) {
 		User user = (User) session.getAttribute("currentUser"); //use this to display user's name
@@ -176,19 +143,12 @@ public class HomeController {
 		return "journal";
 	}
 	
-	//wasn't using
-//	@GetMapping("/journal_edit")
-//	public String showJournalEntryPage(Model model) {
-//		model.addAttribute("journalEntry", new Journal());
-//		return "journal_edit";
-//	}
-	
+	// Handle a new or edited journal entry
 	@PostMapping("/journalentry")
 	public String processJournalEntry(@RequestParam("park_id") int park_id, @RequestParam("newEntry") String entry, HttpSession session, Model model) {
 		User user = (User) session.getAttribute("currentUser"); //use this to display user's name
 		Park park = parkService.getParkByIdService(park_id);
 		Bucket_Been bbPark = bbService.getBBParkService(park_id, user.getId());
-		model.addAttribute("journalEntry", entry);
 		// if a journal entry already exists for this user's bucketlist park, then edit the entry
 		if (bbPark.getJournal_id() != null) {
 			int journalFoundId = bbPark.getJournal_id().getId();
@@ -198,18 +158,18 @@ public class HomeController {
 		} else {
 			Journal newJournal = new Journal(entry);
 			bbService.updateBBParkJournalService(park_id, user.getId(), newJournal);
+			bbPark = bbService.getBBParkService(park_id, user.getId());
 		}
-
+		model.addAttribute("journalEntry", entry);
 		model.addAttribute("park", park); // use this to display the park's name
-//		model.addAttribute("bbPark", bbPark);
-//		model.addAttribute("user", user);
-//		model.addAttribute("journal", bbPark.getJournal_id());
-//		model.getAttribute("textareaText");
-		return "journal"; // This was just return "journal;
-		// After saving new/edited journal, the button said "write" when it should say "edit". 
-		//I try doing a redirect here to reload the journal page, but it leads to a 405: "Request method 'GET' not supported"
+		model.addAttribute("bbPark", bbPark);
+		model.addAttribute("user", user);
+		model.addAttribute("journal", bbPark.getJournal_id());
+		model.getAttribute("textareaText");
+		return "journal"; 
 	}
 	
+	// Delete a park's journal
 	@PostMapping("/deletejournal")
 	public String processDeleteJournal(@RequestParam("park_id") int park_id, HttpSession session, Model model) {
 		User user = (User) session.getAttribute("currentUser"); //use this to display user's name
@@ -220,10 +180,9 @@ public class HomeController {
 			int journalFoundId = bbPark.getJournal_id().getId();
 			bbService.updateBBParkJournalService(park_id, user.getId(), null);
 			journalService.deleteJournalService(journalFoundId);
-		// else add a new journal
-		} else {
+			bbPark = bbService.getBBParkService(park_id, user.getId());
 		}
-		model.addAttribute("park", park); // use this to display the park's name
+		model.addAttribute("park", park); // this is used to display the park's name
 		model.addAttribute("bbPark", bbPark);
 		model.addAttribute("user", user);
 		model.addAttribute("journal", bbPark.getJournal_id());
@@ -231,6 +190,7 @@ public class HomeController {
 		return "journal";
 	}
 
+	// Remove a park from user's been list
 	@PostMapping("/removebeen")
 	public String processRemoveBeen(@RequestParam("park_id") int park_id, 
 								Model model, HttpSession session) {
@@ -239,19 +199,5 @@ public class HomeController {
 		model.addAttribute("loginFailedMessage", "Login Failed");
 		return "redirect:/been";
 	}
-	
-//	@PostMapping("/been")
-//	public String processBeen(@RequestParam("email") String email, 
-//			@RequestParam("password") String password, Model model, HttpSession session) {
-//		User user = userService.findUserByEmailService(email);
-//		System.out.println(user);
-//		System.out.println("Coming from line 69 " + user.toString());
-//		if (user != null && password.equals(user.getPassword())) {	
-//			session.setAttribute("currentUser", user);
-//			return "home";
-//		}
-//		System.out.println("Login failed.");
-//		model.addAttribute("loginFailedMessage", "Login Failed");
-//		return "login";
-//	}
+
 }

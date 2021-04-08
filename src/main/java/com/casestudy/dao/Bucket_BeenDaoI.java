@@ -16,6 +16,7 @@ public interface Bucket_BeenDaoI {
 //	public List<Bucket_Been> getAllBBParks(); // Probably don't need
 	
 	// Might need a "get all been parks by user" / getUserBeen
-	public List<Bucket_Been> getUserBeen(int user_id);
-	public List<Bucket_Been> getUserBucket(int user_id);
+	// moved these to service
+//	public List<Bucket_Been> getUserBeen(int user_id);
+//	public List<Bucket_Been> getUserBucket(int user_id);
 }
