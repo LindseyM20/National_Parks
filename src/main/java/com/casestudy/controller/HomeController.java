@@ -117,6 +117,40 @@ public class HomeController {
 		return "redirect:/bucket";
 	}
 	
+	
+//	//Next 2 methods are experimental
+//	// Trying to grab the park id in a separate postMapping, then use a getMapping to display the journal page. Hoping this can make the buttons and textarea have correct text.
+//	@PostMapping("/bucket1") // change this in bucket too (was /journal)
+//	public int getParkId(@RequestParam("park_id") int park_id) {
+//		return park_id;
+//	}
+//	
+//	@GetMapping("/journal")
+//	public String showJournalPage(HttpSession session, Model model) {
+//		int park_id = request.getParameter("park_id");
+//		User user = (User) session.getAttribute("currentUser"); //use this to display user's name
+//		Park park = parkService.getParkByIdService(park_id);
+//		Bucket_Been bbPark = bbService.getBBParkService(park_id, user.getId());
+//		String textareaText;
+//		if (bbPark.getJournal_id() != null) {
+//			String journalEntry = bbPark.getJournal_id().getEntry();
+//			model.addAttribute("journalEntry", journalEntry);
+////			model.addAttribute("buttonText", "Edit");
+//			textareaText = journalEntry;
+//		} else {
+//			model.addAttribute("journalEntry", "No journal entry yet... Write one?");
+////			model.addAttribute("buttonText", "Write");
+//			textareaText = null;
+//			model.addAttribute("journal", new Journal());
+//		}
+//		model.addAttribute("park", park); // use this to display the park's name
+//		model.addAttribute("bbPark", bbPark);
+//		model.addAttribute("user", user);
+//		model.addAttribute("journal", bbPark.getJournal_id());
+//		model.addAttribute("textareaText", textareaText);
+//		return "journal";
+//	}
+	
 	@PostMapping("/journal")
 	public String showJournalPage(@RequestParam("park_id") int park_id, HttpSession session, Model model) {
 		User user = (User) session.getAttribute("currentUser"); //use this to display user's name
@@ -142,6 +176,7 @@ public class HomeController {
 		return "journal";
 	}
 	
+	//wasn't using
 //	@GetMapping("/journal_edit")
 //	public String showJournalEntryPage(Model model) {
 //		model.addAttribute("journalEntry", new Journal());
@@ -166,11 +201,13 @@ public class HomeController {
 		}
 
 		model.addAttribute("park", park); // use this to display the park's name
-		model.addAttribute("bbPark", bbPark);
-		model.addAttribute("user", user);
-		model.addAttribute("journal", bbPark.getJournal_id());
-		model.getAttribute("textareaText");
-		return "journal";
+//		model.addAttribute("bbPark", bbPark);
+//		model.addAttribute("user", user);
+//		model.addAttribute("journal", bbPark.getJournal_id());
+//		model.getAttribute("textareaText");
+		return "journal"; // This was just return "journal;
+		// After saving new/edited journal, the button said "write" when it should say "edit". 
+		//I try doing a redirect here to reload the journal page, but it leads to a 405: "Request method 'GET' not supported"
 	}
 	
 	@PostMapping("/deletejournal")

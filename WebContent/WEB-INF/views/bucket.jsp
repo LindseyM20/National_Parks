@@ -71,7 +71,8 @@
 										<i class="fas fa-pencil-alt"></i>
 										<input name="park_id"
 											type="submit"
-											value=" Journal"> <!-- When I change to a GET method, the controller is putting the journal value into the URL and trying to use "Journal" as the parameter for park_id. Why? -->
+											value=" Journal"> <!-- When I change to a GET method, the controller is putting +Journal (the value attribute)
+											into the URL and trying to use it as the parameter for park_id. 400 error. Why? -->
 									</a>
 								</form:form>
 								<form:form class="beenBtn" action="./bucket2?park_id=${park.getId()}" method="POST">
