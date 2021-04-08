@@ -9,12 +9,11 @@
 		<class>com.casestudy.models.Bucket_BeenId</class><!--  Should I have this?
 		<exclude-unlisted-classes>true</exclude-unlisted-classes> -->
 		
-		
 	
 		<!-- Properties -->
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
-			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/National_Parks"/> <!-- Can add ?serverTimezone=UTC onto the end of the string if problems. -->
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/National_Parks"/>
 			<property name="javax.persistence.jdbc.user" value="root"/>
 			<property name="javax.persistence.jdbc.password" value="rootroot"/>
 			
@@ -23,5 +22,7 @@
 			<property name="eclipselink.ddl-generation" value="create-or-extend-tables" />
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
 		</properties>
+		
+
 	</persistence-unit>
 </persistence>
