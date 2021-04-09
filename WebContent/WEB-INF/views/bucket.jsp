@@ -20,19 +20,18 @@
 	
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 
-	<link href="https://fonts.googleapis.com/css2?family=Kufam&display=swap" rel="stylesheet">
 	<spring:url value="/resources/css/navbar.css" var="navbarCss" />
 	<link href="${navbarCss}" rel="stylesheet" />
   	<spring:url value="/resources/css/main.css" var="mainCss" />
 	<link href="${mainCss}" rel="stylesheet" />
 	<style>
-		* {
-			font-family: 'Kufam', cursive;
-		}
 		h1, h4 {
 			text-align: center;
 			color: white;
 			margin: 42px;
+		}
+		h1 {
+			margin-top: 80px;
 		}
 		form {
 			display: inline-block;
@@ -41,10 +40,16 @@
 			margin: -5px -10px 20px;
 	
 		}
+		img {
+			margin-top: 3%;
+		}
 		@media all and (max-width:30em){
 		  form {
 		    display: block;
 		    margin :0.4em auto;
+		  }
+		  img {
+			margin-top: 0;
 		  }
 		}
 	</style>

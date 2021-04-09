@@ -16,7 +16,7 @@ import org.junit.runners.Parameterized;
 import com.casestudy.dao.UserDao;
 import com.casestudy.models.User;
 
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)		// Makes the tests run in alphabetcial order
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)	// Makes the tests run in alphabetcial order
 @RunWith(Parameterized.class)  // Only need this if running parameterized tests
 public class UserTest {
 	
@@ -33,12 +33,9 @@ public class UserTest {
 	public static Collection params() {
 		return Arrays.asList(new Object[][] {
 			// run this just for the addUser test...
-			{"test@test.com", new User("Young", "test@test.com", "lkjhgfdsa")}
-			// then check the database for the ID (auto_incremented)...
-			// and plug the ID into this next line:
-//			{"tekglobal@email.com", new User(10, "Young", "tekglobal@email.com", "lkjhgfdsa")}
-//			{101, new Employee(101, "Young", "Professor", 95000)},
-//			{103, new Employee(103, "Ben", "Developer", 70000)}
+			{"test@test.com", new User("Young", "test@test.com", "lkjhgfdsa")},
+			{"test2@test.com", new User("Charlie", "test2@test.com", "lkjh")}
+
 		});
 	}
 	

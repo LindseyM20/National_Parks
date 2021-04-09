@@ -34,8 +34,6 @@ public class User {
 	@Column(length=25, nullable=false)
 	@NotEmpty
 	private String password;
-//	@OneToMany(fetch = FetchType.LAZY)
-//	private Set<Bucket_Been> bucket_been;
 
 	public User() {}
 
@@ -45,12 +43,7 @@ public class User {
 		this.email = email;
 		this.password = password;
 	}
-	
-//	public void addPark(Bucket_Been park) {
-//		this.bucket_been.add(park);
-//	}
-	
-	
+
 	public int getId() {
 		return id;
 	}
@@ -83,20 +76,11 @@ public class User {
 		this.password = password;
 	}
 	
-	
-//	public Set<Bucket_Been> getBucket_been() {
-//		return bucket_been;
-//	}
-//
-//	public void setBucket_been(Set<Bucket_Been> bbParks) {
-//		this.bucket_been = bbParks;
-//	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-//		result = prime * result + ((bucket_been == null) ? 0 : bucket_been.hashCode());
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + id;
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
@@ -113,11 +97,6 @@ public class User {
 		if (getClass() != obj.getClass())
 			return false;
 		User other = (User) obj;
-//		if (bucket_been == null) {
-//			if (other.bucket_been != null)
-//				return false;
-//		} else if (!bucket_been.equals(other.bucket_been))
-//			return false;
 		if (email == null) {
 			if (other.email != null)
 				return false;
@@ -143,7 +122,4 @@ public class User {
 		return "User [id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + "]";
 	}
 
-
-	
-	
 }

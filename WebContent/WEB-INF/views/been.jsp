@@ -22,13 +22,13 @@
 	<link href="${mainCss}" rel="stylesheet" />
 
 	<style>
-		* {
-			font-family: 'Kufam', cursive;
-		}
 		h1, h4 {
 			text-align: center;
 			color: white;
 			margin: 42px;
+		}
+		h1 {
+			margin-top: 80px;
 		}
 		form {
 			display: inline-block;
@@ -40,10 +40,16 @@
 		input {
 			padding: 15px;
 		}
+		img {
+			margin-top: 3%;
+		}
 		@media all and (max-width:30em){
 		  form {
 		    display: block;
 		    margin :0.4em auto;
+		  }
+		  img {
+			margin-top: 0;
 		  }
 		}
 	</style>

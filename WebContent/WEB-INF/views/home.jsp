@@ -25,9 +25,6 @@
 	<link href="${mainCss}" rel="stylesheet" />
 	<title>National Parks Bucket/Been List | Home</title>
 	<style>
-		* {
-			font-family: 'Kufam', cursive;
-		}
 		form {
 			display: inline-block;
 		}
@@ -35,10 +32,16 @@
 			margin: -5px -10px 20px;
 	
 		}
+		img {
+			margin-top: 3%;
+		}
 		@media all and (max-width:30em){
 		  form {
 		    display: block;
 		    margin :0.4em auto;
+		  }
+		  img {
+			margin-top: 0;
 		  }
 		}
 		
@@ -71,7 +74,8 @@
 								<img src="${photoLocal}" alt="${park.getName()}">
 								<h2 class="parkTitle">${park.getName()}</h2>
 								<p class="parkSummary">${park.getSummary()}</p>
-		
+								<p>${bucketError}</p>
+								<p>${beenError}</p>
 								<form:form action="./home1?park_id=${park.getId()}" method="POST">
 									<a class="button1 button2"> 
 										<i class="fas fa-plus"></i>

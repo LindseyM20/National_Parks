@@ -10,28 +10,26 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<script src="https://kit.fontawesome.com/c5b83037af.js" crossorigin="anonymous"></script>
-	<!-- <script defer src="./js/homepage.js"></script> -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
 		integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
 		crossorigin="anonymous">
-	<!-- Optional theme -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
-		integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
-		crossorigin="anonymous">
-	<!-- Latest compiled and minified JavaScript -->
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-		integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-		crossorigin="anonymous"></script>
 	<spring:url value="/resources/css/main.css" var="mainCss" />
 	<link href="${mainCss}" rel="stylesheet" />
-	<title>National Parks Bucket/Been List</title>
 	<style>
-		* {
-			font-family: 'Kufam', cursive;
+		ul { /* Added this b/c chrome's "user agent stylesheet" was adding 40px padding only to the left side */
+		  -webkit-padding-start: 0px;
+		  -webkit-padding-end: 0px;
+		}
+		img {
+			margin-top: 1.5%;
+		}
+		@media all and (max-width:30em){
+		  img {
+			margin-top: 0;
+		  }
 		}
 	</style>
+	<title>National Parks Bucket/Been List</title>
 </head>
 <body>
 	<div id="page-container">

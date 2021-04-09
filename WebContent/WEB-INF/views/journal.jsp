@@ -28,16 +28,10 @@
 	<title>National Parks Journal</title>
 	<style>
 		* {
-			font-family: 'Kufam', cursive;
 			box-sizing: border-box;
 		}
-		/*
-		a {
-	 		cursor: pointer;
-		}
-		*/
-		.journalBtn {
-			display: inline-block;
+		#addBtn {
+			margin-bottom: 10px;
 		}
 	</style>
 </head>
@@ -61,11 +55,9 @@
 			<a class="button1 journalBtn" id="deleteBtn" style="margin-bottom: 20px" onclick="deleteJournal();"><input style="margin: 0" type="submit" value="Delete" /></a>
 		</form:form>
 	</c:if> 
-	
 	<%-- This is a textarea and save button for writing or editing the park, which only shows up when the write/edit button is clicked. --%>
 	<form:form id="form" style="display: none; margin: 0 auto" action="./journalentry?park_id=${park.getId()}" method="post">
-	<%-- futile attempts to get the existing journal entry to show up in the textarea --%>
-		<textarea <%--type="text"--%> path="entry" name="newEntry" value="${textareaText}"></textarea>
+		<textarea name="newEntry">${textareaText}</textarea>
 		<!-- <textarea type="text" path="entry" name="newEntry" value="${journal.getEntry()!=null ? '' : journalEntry}"></textarea> -->
 		<br />
 		<div style="text-align: center">
@@ -79,7 +71,7 @@
   function add() {
 
 	  document.getElementById("addBtn").style.display = "none";
-	  document.getElementById("entry").style.color = "gray"; //change this to display = "none" if you get entry displaying in textarea
+	  document.getElementById("entry").style.display = "none";
 	  document.getElementById("form").style.display = "block";
 	  document.getElementById("form2").style.display = "none";
   }

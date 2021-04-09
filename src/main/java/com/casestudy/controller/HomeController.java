@@ -45,32 +45,45 @@ public class HomeController {
 
 	// Add a park to user's bucket list
 	@PostMapping("/home1")
-	public String processAddBucket(@RequestParam("park_id") int park_id, HttpSession session) {
+	public String processAddBucket(@RequestParam("park_id") int park_id, HttpSession session, Model model) 
+								throws DuplicateBBException {
 		User user = (User) session.getAttribute("currentUser");
 		Park park = parkService.getParkByIdService(park_id);
 		Bucket_Been parkToAdd = new Bucket_Been(park, user, false, null);
-		bbService.addBBParkService(parkToAdd);
-		// Todo: if park is already in bucket list, alert user somehow
-		// Todo: if park is in been list, alert user it cannot be in both.
-		// Todo: make it so page doesn't reload
+		if (bbService.getBBParkService(park_id, user.getId()) == null) {
+			bbService.addBBParkService(parkToAdd);
+		} else if (!bbService.getBBParkService(park_id, user.getId()).getVisited()) {
+			// If park is already in bucket list, alert user (This isn't working yet, as it redirects to home)
+			System.out.println("can't add to bucket twice");
+			String errorMessage = park.getName() + " is already in your bucket list!";
+			model.addAttribute("bucketError", errorMessage);
+		} else {
+			// If park is in been list, alert user it cannot be in both.
+			throw new DuplicateBBException();
+		}
+		// Todo: make it so page doesn't reload (w/o redirect, park list doesn't render)
 		return "redirect:/home";
 	}
 	
 	// Add a park to user's been list
 	@PostMapping("/home2")
-	public String processAddBeen(@RequestParam("park_id") int park_id, HttpSession session) 
+	public String processAddBeen(@RequestParam("park_id") int park_id, HttpSession session, Model model) 
 								throws DuplicateBBException {
 		User user = (User) session.getAttribute("currentUser");
 		Park park = parkService.getParkByIdService(park_id);
 		Bucket_Been parkToAdd = new Bucket_Been(park, user, true, null);
 		if (bbService.getBBParkService(park_id, user.getId()) == null) {
 			bbService.addBBParkService(parkToAdd);
+		} else if (bbService.getBBParkService(park_id, user.getId()).getVisited()) {
+			// If park is already in been list, alert user (This isn't working yet, as it redirects to home)
+			System.out.println("can't add to been twice");
+			String errorMessage = park.getName() + " is already in your been list!";
+			model.addAttribute("beenError", errorMessage);
 		} else {
 			// If park is in bucket list, alert user it cannot be in both.
 			throw new DuplicateBBException();
 		}
-		// Todo: if park is already in been list, alert user somehow
-		// Todo: make it so page doesn't reload
+		// Todo: make it so page doesn't reload (w/o redirect, park list doesn't render)
 		return "redirect:/home";
 	}
 	
@@ -124,22 +137,20 @@ public class HomeController {
 		Park park = parkService.getParkByIdService(park_id);
 		Bucket_Been bbPark = bbService.getBBParkService(park_id, user.getId());
 		String textareaText;
+		model.addAttribute("textareaText");
 		if (bbPark.getJournal_id() != null) {
 			String journalEntry = bbPark.getJournal_id().getEntry();
 			model.addAttribute("journalEntry", journalEntry);
-//			model.addAttribute("buttonText", "Edit");
-			textareaText = journalEntry;
+			model.addAttribute("textareaText", journalEntry);
 		} else {
 			model.addAttribute("journalEntry", "No journal entry yet... Write one?");
-//			model.addAttribute("buttonText", "Write");
-			textareaText = null;
+//			textareaText = null;
 			model.addAttribute("journal", new Journal());
 		}
 		model.addAttribute("park", park); // use this to display the park's name
 		model.addAttribute("bbPark", bbPark);
 		model.addAttribute("user", user);
 		model.addAttribute("journal", bbPark.getJournal_id());
-		model.addAttribute("textareaText", textareaText);
 		return "journal";
 	}
 	

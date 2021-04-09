@@ -43,7 +43,7 @@ public class Bucket_BeenDao extends DBConnection implements Bucket_BeenDaoI {
 	// NEED TO REFACTOR THIS SO USER CAN UPDATE VISITED, VISIT_AGAIN, OR JOURNAL_ID
 	// May need to split into 4 methods.
 	@Override
-	public Bucket_Been updateBBParkVisited(int park_id, int user_id) {
+	public boolean updateBBParkVisited(int park_id, int user_id) {
 		// TODO Auto-generated method stub
 		try {
 			this.connect();
@@ -56,15 +56,15 @@ public class Bucket_BeenDao extends DBConnection implements Bucket_BeenDaoI {
 //			bbParkFound.setJournal_id(put something here);
 			em.getTransaction().commit();
 			this.disconnect();
-			return bbParkFound;
+			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return null;
+		return false;
 	}
 	
 	@Override
-	public Bucket_Been updateBBParkJournal(int park_id, int user_id, Journal journal) {
+	public boolean updateBBParkJournal(int park_id, int user_id, Journal journal) {
 		try {
 			this.connect();
 			em.getTransaction().begin();
@@ -73,11 +73,11 @@ public class Bucket_BeenDao extends DBConnection implements Bucket_BeenDaoI {
 			System.out.println("JOURNAL ADDED/UPDATED TO PARK: " + bbParkFound);			
 			em.getTransaction().commit();
 			this.disconnect();
-			return bbParkFound;
+			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return null;
+		return false;
 	}
 	
 	@Override

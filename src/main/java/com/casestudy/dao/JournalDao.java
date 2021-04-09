@@ -30,7 +30,7 @@ public class JournalDao extends DBConnection implements JournalDaoI {
 	}
 	
 	@Override
-	public Journal updateJournal(Journal journal) {
+	public boolean updateJournal(Journal journal) {
 		try {
 			this.connect();
 			em.getTransaction().begin();
@@ -39,11 +39,11 @@ public class JournalDao extends DBConnection implements JournalDaoI {
 			System.out.println("JOURNAL ENTRY UPDATED: " + journalFound);
 			em.getTransaction().commit();
 			this.disconnect();
-			return journalFound;
+			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return null;
+		return false;
 	}
 	
 	@Override
