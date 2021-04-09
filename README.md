@@ -47,6 +47,7 @@ JUnit tests were made and performed, and all unit tests pass. Find them in the t
 
 ## Sources
 The National Park photographs used in this project are from https://www.thediscoverer.com/blog/every-us-national-park-ranked - with the exception of a couple which are from nps.gov. 
+
 The description of each park is also from the nps.gov website.
 
 ## License
